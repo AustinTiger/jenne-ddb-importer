@@ -3,14 +3,22 @@
   "title": "Jenne D&D Beyond Importer",
   "description": "Modern, streamlined, 100% self-hosted D&D Beyond importer for Foundry VTT. Connects directly to your local DDB Proxy with zero Patreon gates or external cloud dependencies.",
   "version": "1.0.0",
+  "compatibility": {
+    "minimum": "13",
+    "verified": "14"
+  },
   "authors": [
     {
       "name": "Austin Tiger & Jenne"
     }
   ],
-  "compatibility": {
-    "minimum": "12",
-    "verified": "14"
+  "relationships": {
+    "requires": [
+      {
+        "id": "jenne-suite",
+        "type": "module"
+      }
+    ]
   },
   "esmodules": [
     "scripts/init.mjs"
@@ -18,7 +26,11 @@
   "styles": [
     "styles/jenne-ddb-importer.css"
   ],
-  "relationships": {
-    "requires": []
-  }
+  "languages": [
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ]
 }
