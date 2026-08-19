@@ -5,8 +5,7 @@
   "version": "1.0.0",
   "authors": [
     {
-      "name": "Austin Tiger & Jenne",
-      "url": "https://github.com/AustinTiger"
+      "name": "Austin Tiger & Jenne"
     }
   ],
   "compatibility": {
@@ -19,16 +18,7 @@
   "styles": [
     "styles/jenne-ddb-importer.css"
   ],
-  "url": "https://github.com/AustinTiger/jenne-ddb-importer",
-  "manifest": "https://raw.githubusercontent.com/AustinTiger/jenne-ddb-importer/main/module.json",
-  "download": "https://github.com/AustinTiger/jenne-ddb-importer/releases/latest/download/jenne-ddb-importer.zip",
   "relationships": {
-    "systems": [
-      {
-        "id": "dnd5e",
-        "type": "system",
-        "compatibility": {}
-      }
-    ]
+    "requires": []
   }
 }
