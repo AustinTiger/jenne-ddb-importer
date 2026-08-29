@@ -1,81 +1,23 @@
 import "../dist/main.mjs";
 import { JenneDDBApi } from "./api.mjs";
 
-globalThis.JenneDDBImporter = { api: JenneDDBApi };
-
-// Helper to open DDB Character Manager for an actor
-function openCharacterManager(actor) {
-  if (!actor) return;
-  if (globalThis.DDBImporter?.apps?.DDBCharacterManager) {
-    new globalThis.DDBImporter.apps.DDBCharacterManager(actor).render({ force: true });
-  } else if (globalThis.DDBCharacterManager) {
-    new globalThis.DDBCharacterManager(actor).render({ force: true });
+const openMuncher = () => {
+  if (globalThis.DDBImporter?.DDBMuncher) {
+    new globalThis.DDBImporter.DDBMuncher().render({ force: true });
   } else {
-    ui.notifications.warn("DDB Character Manager is not ready yet.");
-  }
-}
-
-// Hook to add full DDB Muncher to Jenne Suite Sidebar Controls
-Hooks.on("getSceneControlButtons", (controls) => {
-  if (!game.user?.isGM) return;
-
-  const isArray = Array.isArray(controls);
-  let jenneSuite = isArray ? controls.find(c => c.name === "jenne-suite") : controls["jenne-suite"];
-
-  if (!jenneSuite) {
-    jenneSuite = {
-      name: "jenne-suite",
-      title: "Jenne Suite",
-      icon: "fa-solid fa-j",
-      layer: "jenneSuite",
-      visible: true,
-      tools: isArray ? [] : {}
-    };
-    if (isArray) {
-      controls.push(jenneSuite);
+    const compBtn = document.querySelector("button.ddb-muncher");
+    if (compBtn) {
+      compBtn.click();
     } else {
-      controls["jenne-suite"] = jenneSuite;
+      ui.notifications.info("D&D Beyond Importer is initializing...");
     }
   }
+};
 
-  if (!jenneSuite.tools) {
-    jenneSuite.tools = isArray ? [] : {};
-  }
-
-  const addTool = (tool) => {
-    const isToolsArray = Array.isArray(jenneSuite.tools);
-    if (isToolsArray) {
-      if (!jenneSuite.tools.some(t => t.name === tool.name)) {
-        jenneSuite.tools.push(tool);
-      }
-    } else {
-      jenneSuite.tools[tool.name] = tool;
-    }
-  };
-
-  const openMuncher = () => {
-    if (globalThis.DDBImporter?.DDBMuncher) {
-      new globalThis.DDBImporter.DDBMuncher().render({ force: true });
-    } else {
-      const compBtn = document.querySelector("button.ddb-muncher");
-      if (compBtn) {
-        compBtn.click();
-      } else {
-        ui.notifications.info("D&D Beyond Importer is initializing...");
-      }
-    }
-  };
-
-  addTool({
-    name: "jenne-ddb-importer",
-    title: "D&D Beyond Importer",
-    icon: "fa-solid fa-dragon",
-    button: true,
-    visible: true,
-    onClick: openMuncher,
-    onChange: openMuncher
-  });
-});
+globalThis.JenneDDBImporter = {
+  api: JenneDDBApi,
+  openMuncher
+};
 
 // Hook into Actor Sheet Header Buttons (V1 sheets)
 Hooks.on("getActorSheetHeaderButtons", (sheet, buttons) => {
