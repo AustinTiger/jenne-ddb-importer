@@ -41,9 +41,25 @@ export class JenneDDBApi {
     return await res.json();
   }
 
-  static async checkCobalt() {
-    const res = await this.post("/proxy/auth");
-    return res.success;
+  static async checkCobalt(cookieOverride = null, proxyOverride = null) {
+    const proxyUrl = proxyOverride || this.getProxyUrl();
+    const cobalt = cookieOverride !== null ? cookieOverride : this.getCobaltCookie();
+    const payload = { cobalt };
+    const url = `${proxyUrl}${proxyUrl.endsWith("/") ? "" : "/"}proxy/auth`;
+    try {
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (!res.ok) {
+        return { success: false, message: `HTTP ${res.status}: ${res.statusText}` };
+      }
+      const data = await res.json();
+      return { success: !!data.success, message: data.message || (data.success ? "Authenticated" : "Unauthenticated session") };
+    } catch (err) {
+      return { success: false, message: err.message };
+    }
   }
 
   static async getConfig() {

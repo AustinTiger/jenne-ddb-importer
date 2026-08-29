@@ -1,98 +1,21 @@
-import { MODULE_ID, MODULE_TITLE, DEFAULT_PROXY_URL } from "./config.mjs";
+import "../dist/main.mjs";
 import { JenneDDBApi } from "./api.mjs";
-import { JenneDDBMainApp } from "./apps/main-app.mjs";
-import { JenneAdventureImporter } from "./importers/adventures.mjs";
-import { JenneCharacterImporter } from "./importers/character.mjs";
-import { JenneMonsterImporter } from "./importers/monsters.mjs";
-import { JenneSpellItemImporter } from "./importers/spells-items.mjs";
 
-Hooks.once("init", () => {
-  console.log(`${MODULE_TITLE} | Initializing...`);
+globalThis.JenneDDBImporter = { api: JenneDDBApi };
 
-  // Expose API and Apps to global scope
-  globalThis.JenneDDB = {
-    Api: JenneDDBApi,
-    MainApp: JenneDDBMainApp,
-    AdventureImporter: JenneAdventureImporter,
-    CharacterImporter: JenneCharacterImporter,
-    MonsterImporter: JenneMonsterImporter,
-    SpellItemImporter: JenneSpellItemImporter
-  };
-
-  // Register Settings
-  game.settings.register(MODULE_ID, "proxyUrl", {
-    name: "Jenne DDB Proxy URL",
-    hint: "The base URL of your self-hosted Jenne DDB Proxy (e.g. https://ddb-proxy.clemson.engineer)",
-    scope: "world",
-    config: true,
-    type: String,
-    default: DEFAULT_PROXY_URL
-  });
-
-  game.settings.register(MODULE_ID, "cobaltCookie", {
-    name: "Cobalt Session Cookie",
-    hint: "Your D&D Beyond CobaltSession authentication cookie.",
-    scope: "world",
-    config: true,
-    type: String,
-    default: ""
-  });
-
-  game.settings.register(MODULE_ID, "migratedFromDdbImporter", {
-    scope: "world",
-    config: false,
-    type: Boolean,
-    default: false
-  });
-});
-
-Hooks.once("ready", async () => {
-  console.log(`${MODULE_TITLE} | Ready`);
-
-  // Automatic Migration from legacy ddb-importer settings
-  const alreadyMigrated = game.settings.get(MODULE_ID, "migratedFromDdbImporter");
-  if (!alreadyMigrated && game.user?.isGM) {
-    try {
-      let migratedAny = false;
-      const currentCobalt = game.settings.get(MODULE_ID, "cobaltCookie");
-
-      if (!currentCobalt || currentCobalt === "") {
-        // Try getting from ddb-importer
-        try {
-          const oldCobalt = game.settings.get("ddb-importer", "cobalt-cookie");
-          if (oldCobalt && oldCobalt !== "") {
-            await game.settings.set(MODULE_ID, "cobaltCookie", oldCobalt);
-            console.log(`${MODULE_TITLE} | Migrated Cobalt session cookie from ddb-importer!`);
-            migratedAny = true;
-          }
-        } catch (e) {
-          // ddb-importer setting might not exist
-        }
-      }
-
-      // Try getting custom proxy url
-      try {
-        const oldProxy = game.settings.get("ddb-importer", "custom-proxy-url");
-        if (oldProxy && oldProxy !== "") {
-          await game.settings.set(MODULE_ID, "proxyUrl", oldProxy);
-          console.log(`${MODULE_TITLE} | Migrated Custom Proxy URL from ddb-importer!`);
-          migratedAny = true;
-        }
-      } catch (e) {
-        // ddb-importer setting might not exist
-      }
-
-      await game.settings.set(MODULE_ID, "migratedFromDdbImporter", true);
-      if (migratedAny) {
-        ui.notifications.info(`${MODULE_TITLE}: Successfully migrated your D&D Beyond settings from ddb-importer!`);
-      }
-    } catch (err) {
-      console.warn(`${MODULE_TITLE} | Settings migration note:`, err);
-    }
+// Helper to open DDB Character Manager for an actor
+function openCharacterManager(actor) {
+  if (!actor) return;
+  if (globalThis.DDBImporter?.apps?.DDBCharacterManager) {
+    new globalThis.DDBImporter.apps.DDBCharacterManager(actor).render({ force: true });
+  } else if (globalThis.DDBCharacterManager) {
+    new globalThis.DDBCharacterManager(actor).render({ force: true });
+  } else {
+    ui.notifications.warn("DDB Character Manager is not ready yet.");
   }
-});
+}
 
-// Register with Jenne Suite Sidebar Controls
+// Hook to add full DDB Muncher to Jenne Suite Sidebar Controls
 Hooks.on("getSceneControlButtons", (controls) => {
   if (!game.user?.isGM) return;
 
@@ -130,14 +53,210 @@ Hooks.on("getSceneControlButtons", (controls) => {
     }
   };
 
+  const openMuncher = () => {
+    if (globalThis.DDBImporter?.DDBMuncher) {
+      new globalThis.DDBImporter.DDBMuncher().render({ force: true });
+    } else {
+      const compBtn = document.querySelector("button.ddb-muncher");
+      if (compBtn) {
+        compBtn.click();
+      } else {
+        ui.notifications.info("D&D Beyond Importer is initializing...");
+      }
+    }
+  };
+
   addTool({
     name: "jenne-ddb-importer",
     title: "D&D Beyond Importer",
-    icon: "fas fa-dragon",
+    icon: "fa-solid fa-dragon",
     button: true,
     visible: true,
-    onChange: () => {
-      new JenneDDBMainApp().render(true);
-    }
+    onClick: openMuncher,
+    onChange: openMuncher
   });
 });
+
+// Hook into Actor Sheet Header Buttons (V1 sheets)
+Hooks.on("getActorSheetHeaderButtons", (sheet, buttons) => {
+  const actor = sheet.actor || sheet.document || sheet.object;
+  if (!actor || !(actor instanceof Actor)) return;
+  if (!actor.isOwner) return;
+
+  const isPC = actor.type === "character";
+  const isNPC = actor.type === "npc";
+
+  if (isPC) {
+    if (!buttons.some(b => b.class === "ddb-open-url" || b.action === "ddbclick")) {
+      buttons.unshift({
+        label: "D&D Beyond Importer",
+        class: "ddb-open-url",
+        icon: "fab fa-d-and-d-beyond",
+        onclick: (ev) => {
+          ev.preventDefault();
+          openCharacterManager(actor);
+        }
+      });
+    }
+  } else if (isNPC && actor.flags?.monsterMunch?.url) {
+    if (!buttons.some(b => b.class === "ddb-open-url" || b.action === "ddbclick")) {
+      buttons.unshift({
+        label: "D&D Beyond Importer",
+        class: "ddb-open-url",
+        icon: "fab fa-d-and-d-beyond",
+        onclick: (ev) => {
+          ev.preventDefault();
+          window.open(actor.flags.monsterMunch.url, "_blank");
+        }
+      });
+    }
+  }
+});
+
+// Hook into Header Controls for ApplicationV2 sheets
+const handleHeaderControlsV2 = (sheet, controls) => {
+  const actor = sheet.actor || sheet.document || sheet.object;
+  if (!actor || !(actor instanceof Actor)) return;
+  if (!actor.isOwner) return;
+
+  const isPC = actor.type === "character";
+  const isNPC = actor.type === "npc";
+  const isGroup = actor.type === "group";
+
+  if (isPC) {
+    if (!sheet.options) sheet.options = {};
+    if (!sheet.options.actions) sheet.options.actions = {};
+    sheet.options.actions.ddbclick = function (event) {
+      const targetActor = this.actor || this.document || actor;
+      openCharacterManager(targetActor);
+    };
+
+    if (!controls.some(c => c.action === "ddbclick" || c.class === "ddb-open-url")) {
+      controls.unshift({
+        label: "D&D Beyond Importer",
+        icon: "fab fa-d-and-d-beyond",
+        action: "ddbclick",
+        ownership: "OWNER"
+      });
+    }
+  } else if (isNPC && actor.flags?.monsterMunch?.url) {
+    if (!sheet.options) sheet.options = {};
+    if (!sheet.options.actions) sheet.options.actions = {};
+    sheet.options.actions.ddbclick = function () {
+      const targetActor = this.actor || this.document || actor;
+      if (targetActor.flags?.monsterMunch?.url) {
+        window.open(targetActor.flags.monsterMunch.url, "_blank");
+      }
+    };
+
+    if (!controls.some(c => c.action === "ddbclick" || c.class === "ddb-open-url")) {
+      controls.unshift({
+        label: "D&D Beyond Importer",
+        icon: "fab fa-d-and-d-beyond",
+        action: "ddbclick",
+        ownership: "OWNER"
+      });
+    }
+  } else if (isGroup) {
+    if (!sheet.options) sheet.options = {};
+    if (!sheet.options.actions) sheet.options.actions = {};
+    sheet.options.actions.ddbpartysync = function () {
+      const targetActor = this.actor || this.document || actor;
+      if (globalThis.DDBImporter?.apps?.DDBPartySync) {
+        globalThis.DDBImporter.apps.DDBPartySync.open({ actor: targetActor });
+      }
+    };
+
+    if (!controls.some(c => c.action === "ddbpartysync")) {
+      controls.unshift({
+        label: "DDB Party Sync",
+        icon: "fab fa-d-and-d-beyond",
+        action: "ddbpartysync",
+        ownership: "OWNER"
+      });
+    }
+  }
+};
+
+[
+  "getHeaderControlsBaseActorSheet",
+  "getHeaderControlsActorSheetV2",
+  "getHeaderControlsCharacterActorSheet",
+  "getHeaderControlsNPCActorSheet",
+  "getHeaderControlsGroupActorSheet",
+  "getHeaderControlsDocumentSheetV2"
+].forEach(hookName => Hooks.on(hookName, handleHeaderControlsV2));
+
+// Universal listener for Cobalt Cookie forms across all D&D Beyond Importer windows
+const attachCobaltListeners = (html) => {
+  const root = html instanceof HTMLElement ? html : (html[0] || document);
+  if (!root) return;
+
+  const cobaltInput = root.querySelector("#cobalt-cookie-input") || root.querySelector("#ddb-cobalt-cookie") || root.querySelector('input[name="cobalt-cookie"]');
+  const clearBtns = root.querySelectorAll(".clear-cobalt-btn, #btn-clear-cobalt, #btn-clear-cobalt-standalone");
+  
+  clearBtns.forEach(btn => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      if (cobaltInput) {
+        cobaltInput.value = "";
+        cobaltInput.dispatchEvent(new Event("change", { bubbles: true }));
+        cobaltInput.dispatchEvent(new Event("input", { bubbles: true }));
+        ui.notifications?.info?.("Cobalt cookie cleared.");
+      }
+    });
+  });
+
+  const checkBtn = root.querySelector("#check-cobalt-button") || root.querySelector('[data-action="checkCobaltButton"]');
+  if (checkBtn && !checkBtn.dataset.listenerBound) {
+    checkBtn.dataset.listenerBound = "true";
+    checkBtn.addEventListener("click", async (e) => {
+      e.preventDefault();
+      checkBtn.disabled = true;
+      checkBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking Cobalt Cookie...';
+
+      try {
+        const cookieVal = cobaltInput ? cobaltInput.value.trim() : "";
+        if (!cookieVal) {
+          checkBtn.innerHTML = '<i class="fas fa-times-circle" style="color: #ef4444;"></i> Cookie is empty!';
+          return;
+        }
+
+        let isAuth = false;
+        let message = "";
+        if (globalThis.JenneDDBImporter?.api?.checkCobalt) {
+          const res = await globalThis.JenneDDBImporter.api.checkCobalt(cookieVal);
+          isAuth = res.success;
+          message = res.message;
+        } else {
+          const res = await fetch("https://ddb.jenne.vip/proxy/auth", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cobalt: cookieVal })
+          }).then(r => r.json()).catch(err => ({ success: false, message: err.message }));
+          isAuth = res.success;
+          message = res.message;
+        }
+
+        if (isAuth) {
+          checkBtn.innerHTML = '<i class="fas fa-check-circle" style="color: #22c55e;"></i> Cobalt Cookie is Valid!';
+          ui.notifications?.info?.("Cobalt Cookie is valid and connected!");
+          const nextBtn = root.querySelector('[data-action="goToCampaignTab"]');
+          if (nextBtn) nextBtn.removeAttribute("disabled");
+        } else {
+          checkBtn.innerHTML = `<i class="fas fa-exclamation-circle" style="color: #f59e0b;"></i> ${message || "Invalid/Expired Cookie"}`;
+          ui.notifications?.warn?.(message || "Cobalt Cookie is invalid or expired.");
+        }
+      } catch (err) {
+        checkBtn.innerHTML = `<i class="fas fa-times-circle" style="color: #ef4444;"></i> Check failed: ${err.message}`;
+      } finally {
+        checkBtn.disabled = false;
+      }
+    });
+  }
+};
+
+Hooks.on("renderApplication", (app, html) => attachCobaltListeners(html));
+Hooks.on("renderFormApplication", (app, html) => attachCobaltListeners(html));
+Hooks.on("renderApplicationV2", (app, html) => attachCobaltListeners(html));
+
