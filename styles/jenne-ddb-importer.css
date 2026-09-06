@@ -262,6 +262,22 @@
   box-shadow: none !important;
 }
 
+/* Inline form buttons (Fetch Campaigns, Check Connection) */
+.window-app[id*="ddb"] .jenne-form-inline-btn,
+.window-app.ddbimporter .jenne-form-inline-btn,
+#btn-fetch-campaigns-settings,
+#check-cobalt-button {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  text-transform: none !important;
+  letter-spacing: normal !important;
+  height: 30px !important;
+  padding: 0 10px !important;
+  white-space: nowrap !important;
+  flex-shrink: 0 !important;
+}
+
 
 /* Hero Action Buttons */
 .jenne-btn-hero {

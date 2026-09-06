@@ -14,8 +14,8 @@
           <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}{{#if this.dmUsername}} ({{this.dmUsername}}){{/if}} - ID: {{this.id}}</option>
           {{/each}}
         </select>
-        <button type="button" id="btn-fetch-campaigns-settings" class="munch-button" style="white-space: nowrap;">
-          <i class="fas fa-sync"></i> Fetch Campaigns
+        <button type="button" id="btn-fetch-campaigns-settings" class="munch-button jenne-form-inline-btn" style="height: 30px !important; padding: 0 10px !important; font-family: 'Inter', sans-serif !important; font-size: 12px !important; font-weight: 500 !important; text-transform: none !important; letter-spacing: normal !important; white-space: nowrap;">
+          <i class="fas fa-sync" style="font-size: 11px;"></i> Fetch Campaigns
         </button>
       </div>
     </div>
@@ -26,12 +26,6 @@
         <input type="text" id="settings-campaign-id-input" name="campaign-id" value="{{campaignId}}" placeholder="e.g. 361284" />
       </div>
       <p class="hint">The numeric ID from your D&D Beyond campaign URL (e.g. <code>https://www.dndbeyond.com/campaigns/361284</code>).</p>
-    </div>
-
-    <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
-      <button type="button" id="btn-open-party-sync" class="munch-button" style="display: inline-flex; align-items: center; gap: 6px;">
-        <i class="fas fa-users"></i> Open Characters Tool
-      </button>
     </div>
   </fieldset>
 
