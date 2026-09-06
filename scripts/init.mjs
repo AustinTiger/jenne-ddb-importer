@@ -105,103 +105,12 @@ globalThis.JenneDDBImporter = {
 
 // Hook into Actor Sheet Header Buttons (V1 sheets)
 Hooks.on("getActorSheetHeaderButtons", (sheet, buttons) => {
-  const actor = sheet.actor || sheet.document || sheet.object;
-  if (!actor || !(actor instanceof Actor)) return;
-  if (!actor.isOwner) return;
-
-  const isPC = actor.type === "character";
-  const isNPC = actor.type === "npc";
-
-  if (isPC) {
-    if (!buttons.some(b => b.class === "ddb-open-url" || b.action === "ddbclick")) {
-      buttons.unshift({
-        label: "D&D Beyond Importer",
-        class: "ddb-open-url",
-        icon: "fab fa-d-and-d-beyond",
-        onclick: (ev) => {
-          ev.preventDefault();
-          openCharacterManager(actor);
-        }
-      });
-    }
-  } else if (isNPC && actor.flags?.monsterMunch?.url) {
-    if (!buttons.some(b => b.class === "ddb-open-url" || b.action === "ddbclick")) {
-      buttons.unshift({
-        label: "D&D Beyond Importer",
-        class: "ddb-open-url",
-        icon: "fab fa-d-and-d-beyond",
-        onclick: (ev) => {
-          ev.preventDefault();
-          window.open(actor.flags.monsterMunch.url, "_blank");
-        }
-      });
-    }
-  }
+  // Actor header buttons removed per user preference - imports managed via DDB Importer
 });
 
 // Hook into Header Controls for ApplicationV2 sheets
 const handleHeaderControlsV2 = (sheet, controls) => {
-  const actor = sheet.actor || sheet.document || sheet.object;
-  if (!actor || !(actor instanceof Actor)) return;
-  if (!actor.isOwner) return;
-
-  const isPC = actor.type === "character";
-  const isNPC = actor.type === "npc";
-  const isGroup = actor.type === "group";
-
-  if (isPC) {
-    if (!sheet.options) sheet.options = {};
-    if (!sheet.options.actions) sheet.options.actions = {};
-    sheet.options.actions.ddbclick = function (event) {
-      const targetActor = this.actor || this.document || actor;
-      openCharacterManager(targetActor);
-    };
-
-    if (!controls.some(c => c.action === "ddbclick" || c.class === "ddb-open-url")) {
-      controls.unshift({
-        label: "D&D Beyond Importer",
-        icon: "fab fa-d-and-d-beyond",
-        action: "ddbclick",
-        ownership: "OWNER"
-      });
-    }
-  } else if (isNPC && actor.flags?.monsterMunch?.url) {
-    if (!sheet.options) sheet.options = {};
-    if (!sheet.options.actions) sheet.options.actions = {};
-    sheet.options.actions.ddbclick = function () {
-      const targetActor = this.actor || this.document || actor;
-      if (targetActor.flags?.monsterMunch?.url) {
-        window.open(targetActor.flags.monsterMunch.url, "_blank");
-      }
-    };
-
-    if (!controls.some(c => c.action === "ddbclick" || c.class === "ddb-open-url")) {
-      controls.unshift({
-        label: "D&D Beyond Importer",
-        icon: "fab fa-d-and-d-beyond",
-        action: "ddbclick",
-        ownership: "OWNER"
-      });
-    }
-  } else if (isGroup) {
-    if (!sheet.options) sheet.options = {};
-    if (!sheet.options.actions) sheet.options.actions = {};
-    sheet.options.actions.ddbpartysync = function () {
-      const targetActor = this.actor || this.document || actor;
-      if (globalThis.DDBImporter?.apps?.DDBPartySync) {
-        globalThis.DDBImporter.apps.DDBPartySync.open({ actor: targetActor });
-      }
-    };
-
-    if (!controls.some(c => c.action === "ddbpartysync")) {
-      controls.unshift({
-        label: "DDB Party Sync",
-        icon: "fab fa-d-and-d-beyond",
-        action: "ddbpartysync",
-        ownership: "OWNER"
-      });
-    }
-  }
+  // Actor & party sheet header controls removed per user preference - imports managed via DDB Importer
 };
 
 [

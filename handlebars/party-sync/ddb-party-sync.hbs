@@ -28,7 +28,11 @@
     {{#if campaignName}}
     <p class="hint">DDB campaign: <strong>{{campaignName}}</strong>{{#if campaignDM}} &middot; DM: <i>{{campaignDM}}</i>{{/if}}</p>
     {{/if}}
+    {{#if isPartyActor}}
     <p class="hint">Group actor: <i>{{actorName}}</i>{{#if hasCampaignId}} &middot; Last sync: <i>{{lastSync}}</i>{{/if}}</p>
+    {{else if hasCampaignId}}
+    <p class="hint">Last sync: <i>{{lastSync}}</i></p>
+    {{/if}}
     {{#unless hasCampaignId}}
     <p class="hint warning">Choose a campaign and click Save to enable the rest of this dialog.</p>
     {{/unless}}
@@ -98,6 +102,7 @@
     {{/if}}
   </fieldset>
 
+  {{#if isPartyActor}}
   <fieldset class="ddb-party-inventory">
     <legend>Party Inventory</legend>
     {{#if patreonSupporter}}
@@ -113,6 +118,7 @@
     <p class="hint">Party inventory sync requires an active Patreon supporter key (Power tier or above).</p>
     {{/if}}
   </fieldset>
+  {{/if}}
 
   {{/if}}
 

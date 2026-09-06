@@ -32,38 +32,6 @@
   </fieldset>
 
   <fieldset style="margin-top: 14px;">
-    <legend><i class="fas fa-users"></i> D&D Beyond Campaign & Party Sync</legend>
-    <p class="hint">Link your D&D Beyond Campaign to enable campaign content sharing, character imports, and party synchronization.</p>
-
-    <div class="form-group" style="margin-top: 8px;">
-      <label>Campaign</label>
-      <div class="form-fields" style="display: flex; gap: 8px;">
-        <select name="campaign-select" id="settings-campaign-select" class="form-select" style="flex: 1;">
-          <option value="">-- Select Linked Campaign --</option>
-          {{#each availableCampaigns}}
-          <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}{{#if this.dmUsername}} ({{this.dmUsername}}){{/if}} - ID: {{this.id}}</option>
-          {{/each}}
-        </select>
-        <button type="button" id="btn-fetch-campaigns-settings" class="munch-button" style="white-space: nowrap;">
-          <i class="fas fa-sync"></i> Fetch Campaigns
-        </button>
-      </div>
-    </div>
-
-    <div class="form-group" style="margin-top: 8px;">
-      <label>Manual Campaign ID</label>
-      <div class="form-fields">
-        <input type="text" id="settings-campaign-id-input" name="campaign-id" value="{{campaignId}}" placeholder="e.g. 361284" />
-      </div>
-      <p class="hint">The numeric ID from your D&D Beyond campaign URL (e.g. <code>https://www.dndbeyond.com/campaigns/361284</code>).</p>
-    </div>
-
-    <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
-      <button type="button" id="btn-open-party-sync" class="munch-button" style="display: inline-flex; align-items: center; gap: 6px;">
-        <i class="fas fa-users-cog"></i> Open DDB Party Sync Tool
-      </button>
-    </div>
-  </fieldset>
 
 
   <fieldset style="margin-top: 14px;">
