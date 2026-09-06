@@ -692,38 +692,65 @@ class DDBMuncherSettings extends f.A{static checkCobaltButton(...e){return DDBMu
       ui.notifications?.info("No characters selected for import.");
       return;
     }
-    const targets=selected.filter(c=>!c.alreadyImported);
-    if(targets.length===0){
-      ui.notifications?.info("All selected characters are already imported.");
-      return;
-    }
-    ui.notifications?.info(`Importing ${targets.length} character(s) from D&D Beyond...`);
-    let count=0;
-    for(const char of targets){
-      try{
-        if(globalThis.DDBImporter?.importCharacterById){
-          await globalThis.DDBImporter.importCharacterById(char.characterId);
-        } else if(typeof V!=="undefined"&&V.A?.importCharacterById){
-          await V.A.importCharacterById(char.characterId);
-        } else {
-          const charActor=await Actor.create({
-            name: char.characterName||"New Actor",
-            type: "character",
-            flags: {
-              "jenne-ddb-importer": { dndbeyond: { characterId: char.characterId, url: `https://www.dndbeyond.com/characters/${char.characterId}` } },
-              "ddbimporter": { dndbeyond: { characterId: char.characterId, url: `https://www.dndbeyond.com/characters/${char.characterId}` } }
-            }
-          });
-          const manager=new (globalThis.DDBImporter?.apps?.DDBCharacterManager||_.A)(charActor);
-          await manager.processImport();
+    const unimported=selected.filter(c=>!c.alreadyImported);
+    if(unimported.length>0){
+      ui.notifications?.info(`Importing ${unimported.length} character(s) from D&D Beyond...`);
+      let count=0;
+      for(const char of unimported){
+        try{
+          if(globalThis.DDBImporter?.importCharacterById){
+            await globalThis.DDBImporter.importCharacterById(char.characterId);
+          } else if(typeof V!=="undefined"&&V.A?.importCharacterById){
+            await V.A.importCharacterById(char.characterId);
+          } else {
+            const charActor=await Actor.create({
+              name: char.characterName||"New Actor",
+              type: "character",
+              flags: {
+                "jenne-ddb-importer": { dndbeyond: { characterId: char.characterId, url: `https://www.dndbeyond.com/characters/${char.characterId}` } },
+                "ddbimporter": { dndbeyond: { characterId: char.characterId, url: `https://www.dndbeyond.com/characters/${char.characterId}` } }
+              }
+            });
+            const manager=new (globalThis.DDBImporter?.apps?.DDBCharacterManager||_.A)(charActor);
+            await manager.processImport();
+          }
+          count++;
+        }catch(err){
+          n.logger.error(`Failed to import character ${char.characterName} (${char.characterId})`,err);
+          ui.notifications?.error(`Failed to import ${char.characterName}: ${err.message}`);
         }
-        count++;
-      }catch(err){
-        n.logger.error(`Failed to import character ${char.characterName} (${char.characterId})`,err);
-        ui.notifications?.error(`Failed to import ${char.characterName}: ${err.message}`);
+      }
+      ui.notifications?.info(`Imported ${count} of ${unimported.length} character(s).`);
+    }
+
+    // Auto-add selected characters to the active Party / Group sheet
+    if(this.isPartyActor&&this.actor){
+      let addedToParty=0;
+      for(const char of selected){
+        const actor=DDBPartySync._findOwnerActor(char.characterId);
+        if(actor){
+          try{
+            if(typeof this.actor.system?.addMember==="function"){
+              await this.actor.system.addMember(actor);
+              addedToParty++;
+            } else {
+              const currentMembers=(this.actor.system?.members||[]).map(m=>typeof m==="object"?(m.actor||m.id||m):m);
+              if(!currentMembers.includes(actor.id)){
+                const newMembers=[...(this.actor.system?.members||[]),{actor:actor.id}];
+                await this.actor.update({"system.members":newMembers});
+                addedToParty++;
+              }
+            }
+          }catch(err){
+            n.logger.warn(`Could not add ${actor.name} to party:`,err);
+          }
+        }
+      }
+      if(addedToParty>0){
+        ui.notifications?.info(`Added ${addedToParty} character(s) to ${this.actor.name}.`);
       }
     }
-    ui.notifications?.info(`Imported ${count} of ${targets.length} character(s).`);
+
     this.partyState.charactersLoaded=!1;
     await this._loadCharacters();
   }
