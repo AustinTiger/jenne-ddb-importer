@@ -35,7 +35,7 @@
     <p class="hint">Select the character attributes to synchronize back to D&D Beyond when updating or pushing character changes.</p>
 
     <div class="form-group stacked checkbox-grid" style="margin-top: 8px;">
-      <div class="form-fields" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;">
+      <div class="form-fields" style="display: flex; gap: 32px; align-items: center;">
         {{#each syncConfig}}
         <label class="checkbox" style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
           <dnd5e-checkbox name="{{this.name}}" id="setting-{{this.name}}" class="ddb-export-policy-checkbox"
