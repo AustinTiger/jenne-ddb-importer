@@ -1,0 +1,8 @@
+<div class="ddb-character-details {{#if localPatreonValid}}munching-details-hidden{{/if}}">
+  <fieldset id="munching-task-details">
+    <legend><i class="fas fa-exclamation-triangle"></i> Notice</legend>
+    <div class="task-name">
+      {{#if localPatreonValid}}{{else}}<p style="color: var(--jenne-danger-color, #782e22); font-weight: 600;">Local Patreon Key is set on this character in the Advanced tab, but it is not valid. Import may fail.</p>{{/if}}
+    </div>
+  </fieldset>
+</div>

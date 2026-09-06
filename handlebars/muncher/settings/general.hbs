@@ -1,0 +1,128 @@
+<section id="ddb-importer-muncher-general" class="tab ddb-muncher {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+  
+  <fieldset>
+    <legend><i class="fas fa-key"></i> D&D Beyond Authentication & Proxy</legend>
+    
+    <div class="form-group">
+      <label>Cobalt Session Cookie</label>
+      <div class="form-fields" style="display: flex; gap: 8px;">
+        <input class="setup-config" type="password" id="cobalt-cookie-input" name="cobalt-cookie" value="{{cobalt}}" placeholder="Auto-managed via Jenne Proxy or paste manually" style="flex: 1;" />
+        <button type="button" data-action="checkCobaltButton" id="check-cobalt-button" class="munch-button" style="white-space: nowrap;">
+          <i class="fas fa-plug"></i> Check Connection
+        </button>
+      </div>
+      <p class="hint">Your D&D Beyond session authentication token. If your Jenne Proxy has auto-login configured, this is managed automatically.</p>
+    </div>
+
+    <div class="form-group" style="margin-top: 10px;">
+      <label>Custom Proxy URL</label>
+      <div class="form-fields">
+        <input class="setup-config" type="text" id="custom-proxy-url-input" name="api-endpoint" value="{{customProxyUrl}}" placeholder="https://ddb-proxy.clemson.engineer" />
+      </div>
+      <p class="hint">The base URL of your self-hosted Jenne DDB Proxy (e.g. <code>https://ddb-proxy.clemson.engineer</code>).</p>
+    </div>
+
+    <div class="form-group" style="margin-top: 10px;">
+      <label>Dynamic Character Sync</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="dynamic-sync" id="dynamic-sync-checkbox" {{#if dynamicSync}}checked{{/if}} data-section="dynamicSync"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Enable real-time two-way synchronization of HP, spell slots, currency, and conditions between Foundry VTT and D&D Beyond character sheets.</p>
+    </div>
+  </fieldset>
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-users"></i> D&D Beyond Campaign & Party Sync</legend>
+    <p class="hint">Link your D&D Beyond Campaign to enable campaign content sharing, character imports, and party synchronization.</p>
+
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Campaign</label>
+      <div class="form-fields" style="display: flex; gap: 8px;">
+        <select name="campaign-select" id="settings-campaign-select" class="form-select" style="flex: 1;">
+          <option value="">-- Select Linked Campaign --</option>
+          {{#each availableCampaigns}}
+          <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}{{#if this.dmUsername}} ({{this.dmUsername}}){{/if}} - ID: {{this.id}}</option>
+          {{/each}}
+        </select>
+        <button type="button" id="btn-fetch-campaigns-settings" class="munch-button" style="white-space: nowrap;">
+          <i class="fas fa-sync"></i> Fetch Campaigns
+        </button>
+      </div>
+    </div>
+
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Manual Campaign ID</label>
+      <div class="form-fields">
+        <input type="text" id="settings-campaign-id-input" name="campaign-id" value="{{campaignId}}" placeholder="e.g. 361284" />
+      </div>
+      <p class="hint">The numeric ID from your D&D Beyond campaign URL (e.g. <code>https://www.dndbeyond.com/campaigns/361284</code>).</p>
+    </div>
+
+    <div style="margin-top: 12px; display: flex; justify-content: flex-end;">
+      <button type="button" id="btn-open-party-sync" class="munch-button" style="display: inline-flex; align-items: center; gap: 6px;">
+        <i class="fas fa-users-cog"></i> Open DDB Party Sync Tool
+      </button>
+    </div>
+  </fieldset>
+
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-sliders-h"></i> Shared Settings</legend>
+    {{#each genericConfig}}
+    <div class="form-group munching-generic-config">
+      <label>{{ this.label }}</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="{{this.name}}" id="munching-generic-policy-{{this.name}}" {{#if this.isChecked}}checked{{/if}}
+        data-section="{{this.name}}" {{#if this.enabled}}enabled{{else}}disabled{{/if}}></dnd5e-checkbox>
+      </div>
+      <p class="hint">{{{this.hint}}}</p>
+    </div>
+    {{/each}}
+  </fieldset>
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-magic"></i> Gameplay Rule Automations</legend>
+    <p class="hint">Optional, lightweight automation enhancements for specific class features.</p>
+    
+    {{#each enhancementConfig}}
+    <div class="form-group enhancements-config" style="margin-top: 8px;">
+      <label>{{ this.label }}</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="{{this.name}}" id="enhancements-config-{{this.name}}" {{#if this.isChecked}}checked{{/if}}
+        data-section="{{this.name}}" {{#if this.enabled}}enabled{{else}}disabled{{/if}}></dnd5e-checkbox>
+      </div>
+      <p class="hint">{{{this.hint}}}</p>
+    </div>
+    {{/each}}
+  </fieldset>
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-dragon"></i> Monster Configuration</legend>
+    
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Hide monster actions in chat?</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="munching-policy-hide-description" id="munching-policy-hide-description" {{#if hideMonsterDescription}}checked{{/if}} data-section="hideDescription"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Hides monster action details and descriptions from players in chat roll cards.</p>
+    </div>
+
+    <div class="form-group" style="margin-top: 10px;">
+      <label>Retain existing biographies?</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="munching-policy-monster-retain-biography" id="munching-policy-monster-retain-biography" {{#if retainMonsterBiography}}checked{{/if}} data-section="retainBiography"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Preserve custom GM biography edits when updating existing monsters from compendiums.</p>
+    </div>
+
+    <div class="form-group" style="margin-top: 10px;">
+      <label>Use full portrait art for tokens?</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="munching-policy-use-full-token-image" id="munching-policy-use-full-token-image" {{#if useFullTokenImage}}checked{{/if}} data-section="useFullTokenImage"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Use the full monster illustration for tokens instead of the close-up circular avatar crop.</p>
+    </div>
+  </fieldset>
+
+</section>
+

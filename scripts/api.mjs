@@ -5,15 +5,23 @@ import { MODULE_ID, DEFAULT_PROXY_URL } from "./config.mjs";
  */
 export class JenneDDBApi {
   static getProxyUrl() {
-    return game.settings.get(MODULE_ID, "proxyUrl") || DEFAULT_PROXY_URL;
+    try {
+      return game.settings.get(MODULE_ID, "api-endpoint") || DEFAULT_PROXY_URL;
+    } catch (e) {
+      return DEFAULT_PROXY_URL;
+    }
   }
 
   static getCobaltCookie() {
-    return game.settings.get(MODULE_ID, "cobaltCookie") || "";
+    try {
+      return game.settings.get(MODULE_ID, "cobalt-cookie") || "";
+    } catch (e) {
+      return "";
+    }
   }
 
   static async post(endpoint, data = {}) {
-    const proxyUrl = this.getProxyUrl();
+    const proxyUrl = this.getProxyUrl().replace(/\/$/, "");
     const cobalt = this.getCobaltCookie();
     const payload = { cobalt, ...data };
 
@@ -30,7 +38,7 @@ export class JenneDDBApi {
   }
 
   static async get(endpoint) {
-    const proxyUrl = this.getProxyUrl();
+    const proxyUrl = this.getProxyUrl().replace(/\/$/, "");
     const url = `${proxyUrl}${endpoint.startsWith("/") ? "" : "/"}${endpoint}`;
     const res = await fetch(url, {
       headers: {
@@ -42,10 +50,10 @@ export class JenneDDBApi {
   }
 
   static async checkCobalt(cookieOverride = null, proxyOverride = null) {
-    const proxyUrl = proxyOverride || this.getProxyUrl();
+    const proxyUrl = (proxyOverride || this.getProxyUrl()).replace(/\/$/, "");
     const cobalt = cookieOverride !== null ? cookieOverride : this.getCobaltCookie();
     const payload = { cobalt };
-    const url = `${proxyUrl}${proxyUrl.endsWith("/") ? "" : "/"}proxy/auth`;
+    const url = `${proxyUrl}/proxy/auth`;
     try {
       const res = await fetch(url, {
         method: "POST",

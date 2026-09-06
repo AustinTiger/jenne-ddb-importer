@@ -1,0 +1,49 @@
+<section id="ddb-importer-muncher-sources" class="tab ddb-muncher {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+
+  <div class="jenne-sources-header-bar">
+    <div class="jenne-sources-header-info">
+      <h3><i class="fas fa-book-open"></i> Content Sources & Book Filter</h3>
+      <p class="hint">Filter entity munching (spells, items, monsters, vehicles) to your accessible sourcebooks. Check a category header to select or deselect all books in that group.</p>
+    </div>
+    {{#if userBooksLoaded}}
+      <div class="jenne-sources-status-pill success">
+        <i class="fas fa-check-circle"></i> {{userBookCount}} Accessible Books
+      </div>
+    {{else}}
+      <div class="jenne-sources-status-pill warning">
+        <i class="fas fa-info-circle"></i> Showing All Catalog Books
+      </div>
+    {{/if}}
+  </div>
+
+  <div class="jenne-sources-groups-container">
+    {{#each sourceGroups}}
+    <fieldset class="jenne-sources-group-fieldset" data-group-key="{{this.key}}">
+      <legend class="jenne-sources-group-legend">
+        <div class="jenne-legend-left">
+          <i class="{{this.icon}}"></i>
+          <span>{{this.name}}</span>
+        </div>
+        <div class="jenne-legend-right">
+          <span class="jenne-sources-count-badge" id="badge-{{this.key}}">{{this.selectedCount}} / {{this.books.length}} Selected</span>
+          <label class="jenne-group-master-toggle" title="Toggle all books in {{this.name}}">
+            <input type="checkbox" class="jenne-group-master-checkbox" data-group-key="{{this.key}}" {{#if this.allSelected}}checked{{/if}} />
+            <span class="jenne-toggle-label">Select All</span>
+          </label>
+        </div>
+      </legend>
+
+      <div class="jenne-sources-grid">
+        {{#each this.books}}
+        <label class="jenne-source-book-card {{#if this.selected}}selected{{/if}}" data-book-id="{{this.id}}" data-group-key="{{../key}}">
+          <input type="checkbox" class="jenne-book-checkbox" data-book-id="{{this.id}}" data-group-key="{{../key}}" {{#if this.selected}}checked{{/if}} />
+          <span class="jenne-book-tag">{{this.name}}</span>
+          <span class="jenne-book-title" title="{{this.description}}">{{this.description}}</span>
+        </label>
+        {{/each}}
+      </div>
+    </fieldset>
+    {{/each}}
+  </div>
+
+</section>

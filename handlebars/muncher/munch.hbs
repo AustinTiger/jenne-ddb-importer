@@ -1,0 +1,198 @@
+<section class="ddb-muncher-main">
+
+  
+  <!-- Master Full Munch Hero Card -->
+  <fieldset class="jenne-munch-hero-fieldset">
+    <legend><i class="fas fa-file-import"></i> Complete Compendium Import</legend>
+    <div class="jenne-munch-hero-content" style="display: flex; flex-direction: column; gap: 10px; align-items: stretch; text-align: center;">
+      <div>
+        <h4 style="margin: 0 0 4px 0; color: var(--jenne-text-active); font-size: 13.5px; font-family: 'Cinzel', Georgia, serif; font-weight: 700;">One-Click Full Library Build</h4>
+        <p class="hint" style="margin: 0; font-size: 11.5px; line-height: 1.45;">Extracts and builds all Spells, Items, Feats, Backgrounds, Species, Classes, Monsters, Vehicles, and Frames automatically in the correct dependency order.</p>
+      </div>
+      <button data-action="parseAllMunchers" type="button" class="munch-button jenne-btn-hero" style="width: 100% !important; height: 36px !important; font-size: 13px !important; margin: 4px 0 0 0 !important;">
+        <i class="fas fa-file-import"></i> Import Everything
+      </button>
+    </div>
+  </fieldset>
+
+
+  <!-- Core Content Munchers List -->
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-database"></i> Compendium Content Importers</legend>
+    <div class="jenne-munch-list" style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
+      
+      <!-- Spells -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-magic jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Spells</span>
+              <span class="hint">Cantrips & Level 1–9 Spells</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts complete spellbooks, saving throws, damage formulas, and scaling rules.</p>
+          </div>
+        </div>
+        <button data-action="parseSpells" type="button" id="munch-spells-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-magic"></i> Import Spells
+        </button>
+      </div>
+
+      <!-- Items & Equipment -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-shield-alt jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Items & Equipment</span>
+              <span class="hint">Weapons, Armor, Magic Items</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts equipment with 2024 masteries, magical properties, and linked spell scrolls (auto-imports spells if needed).</p>
+          </div>
+        </div>
+        <button data-action="parseItemsWithDependencies" type="button" id="munch-items-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-boxes"></i> Import Items
+        </button>
+      </div>
+
+      <!-- Monsters -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-skull jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Monsters & NPCs</span>
+              <span class="hint">Statblocks, Tokens & Actions</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts monster statblocks, actions, token art, legendary actions, and senses (auto-imports spells & items if needed).</p>
+          </div>
+        </div>
+        <button data-action="parseMonstersWithDependencies" type="button" id="munch-monsters-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-skull"></i> Import Monsters
+        </button>
+      </div>
+
+      <!-- Feats & Features -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-award jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Feats & Features</span>
+              <span class="hint">General, Origin & Fighting Styles</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts origin feats, general feats, epic boons, and prerequisite advancements.</p>
+          </div>
+        </div>
+        <button data-action="parseFeats" type="button" id="munch-feats-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-award"></i> Import Feats
+        </button>
+      </div>
+
+      <!-- Backgrounds -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-book-reader jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Backgrounds</span>
+              <span class="hint">Origin Backgrounds & Proficiencies</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts 2014 & 2024 character backgrounds with tool/skill proficiencies and origin feats.</p>
+          </div>
+        </div>
+        <button data-action="parseBackgroundsWithDependencies" type="button" id="munch-backgrounds-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-book-reader"></i> Import Backgrounds
+        </button>
+      </div>
+
+      <!-- Species / Races -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-dna jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Species / Races</span>
+              <span class="hint">Lineages, Subraces & Traits</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts species data, traits, racial spells, speed, and size advancements (auto-imports feats & spells if needed).</p>
+          </div>
+        </div>
+        <button data-action="parseSpeciesWithDependencies" type="button" id="munch-species-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-dna"></i> Import Species
+        </button>
+      </div>
+
+      <!-- Classes & Subclasses -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-hat-wizard jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Classes & Subclasses</span>
+              <span class="hint">Progression, Features & Spells</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts core class advancement trees, subclass archetypes, and class features (auto-imports feats & spells if needed).</p>
+          </div>
+        </div>
+        <button data-action="parseClassesWithDependencies" type="button" id="munch-classes-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-hat-wizard"></i> Import Classes
+        </button>
+      </div>
+
+      <!-- Vehicles -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-ship jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Vehicles</span>
+              <span class="hint">Land, Sea & Spelljammers</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts siege weapons, ship stats, speed, creature capacities, and hull components.</p>
+          </div>
+        </div>
+        <button data-action="parseVehicles" type="button" id="munch-vehicles-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-ship"></i> Import Vehicles
+        </button>
+      </div>
+
+      <!-- Token Frames -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-circle-notch jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Token Frames</span>
+              <span class="hint">D&D Beyond Ring Borders</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Downloads decorative token ring frames from your unlocked D&D Beyond library.</p>
+          </div>
+        </div>
+        <button data-action="parseFrames" type="button" id="munch-frames-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-circle-notch"></i> Import Frames
+        </button>
+      </div>
+
+      <!-- Adventures Browser -->
+      <div class="jenne-munch-row">
+        <div class="jenne-munch-row-left">
+          <i class="fas fa-dungeon jenne-munch-card-icon"></i>
+          <div class="jenne-munch-row-info">
+            <div class="jenne-munch-row-title-bar">
+              <span class="jenne-munch-card-title">Adventures & Books</span>
+              <span class="hint">Campaigns, Scenes & Journals</span>
+            </div>
+            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Import complete adventure modules, maps, dynamic walls, lighting, and journals.</p>
+          </div>
+        </div>
+        <button data-action="openAdventureBrowser" type="button" id="munch-adventures-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
+          <i class="fas fa-dungeon"></i> Open Browser
+        </button>
+      </div>
+
+    </div>
+  </fieldset>
+
+
+</section>

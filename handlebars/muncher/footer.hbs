@@ -1,0 +1,10 @@
+<footer class="form-footer" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; border-top: 1px solid var(--jenne-border); font-size: 11px; color: var(--jenne-text-muted);">
+  {{#if isCampaign}}<div><i class="fas fa-campground"></i> Campaign ID: {{campaignId}}</div>{{else}}<div></div>{{/if}}
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <span><strong>D&D Beyond Importer</strong> v0.5.0</span>
+    <button type="button" data-action="openSettings" class="munch-button jenne-footer-settings-btn" title="Open Importer Settings" style="height: 26px !important; padding: 0 10px !important; font-size: 11px !important; display: inline-flex; align-items: center; gap: 5px;">
+      <i class="fas fa-cog"></i> Settings
+    </button>
+  </div>
+</footer>
+

@@ -1,0 +1,35 @@
+<section id="ddb-importer-settings-cobalt" class="tab {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+<fieldset>
+  <legend>[Required] Authentication with D&D Beyond</legend>
+  <p>Use my <a href="https://github.com/MrPrimate/ddb-importer-chrome">Chrome</a> to get this with a click, or follow <a href="https://raw.githubusercontent.com/MrPrimate/ddb-importer/main/docs/manual-cookie.png">these manual steps</a>. Paste into this field with Ctrl-V.</p>
+
+  <div class="form-group cobalt-setup">
+    <label>Cobalt Cookie</label>
+    <div class="form-fields" style="display: flex; align-items: center; gap: 6px; width: 100%;">
+      <input class="setup-config" type="text" autocomplete="off" spellcheck="false" name="cobalt-cookie" id="cobalt-cookie-input" style="flex: 1; min-width: 0;"
+          value="{{setupConfig.cobalt-cookie}}" placeholder="Paste cobalt cookie here..." />
+      <button type="button" class="clear-cobalt-btn" id="btn-clear-cobalt" title="Clear Cobalt Cookie" style="flex: 0 0 32px; height: 28px; padding: 0; display: inline-flex; align-items: center; justify-content: center; cursor: pointer;">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+  </div>
+  <button data-action="checkCobaltButton" id="check-cobalt-button" class="check-cobalt-button" style="margin-top: 8px;">Check Cobalt Cookie{{this.cobaltCheckMessage}}</button>
+
+ {{#if this.showDiscouraged}}
+  <div class="form-group cobalt-setup">
+    <label>Store Cobalt Cookie in browser storage?</label>
+    <div class="form-fields">
+      <input {{#if this.cobaltLocal}}checked{{/if}} class="setup-config" type="checkbox" name="cobalt-cookie-local"
+       style="flex: 0 1 auto"> Use local storage?
+    </div>
+    <p class="hint"><p>If this is checked, the cobalt cookie will be stored in your local browser storage. Only your browser can run the importer.</p>
+  </div>
+ {{/if}}
+</fieldset>
+
+<div class="flexrow">
+<button disabled><i class="fas fa-chevron-left"></i> Previous</button>
+<button data-action="goToCampaignTab" {{#if this.validCobalt}}{{else}}disabled{{/if}}>Next <i class="fas fa-chevron-right"></i></button>
+</div>
+
+</section>

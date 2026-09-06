@@ -1,0 +1,16 @@
+<section id="ddb-character-manager-advanced" class="tab {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+  <fieldset>
+    <legend><i class="fas fa-user-cog"></i> Actor-Specific Authentication</legend>
+
+    <p class="hint">You can store a local Cobalt Cookie specific to this character. This allows individual players to import their own private D&D Beyond content without exposing GM credentials.</p>
+    
+    <div style="display: flex; gap: 8px; margin-top: 10px; margin-bottom: 14px;">
+      <button data-action="deleteLocalCobalt" type="button" id="delete-local-cobalt" class="munch-button btn-secondary" style="flex: 1;" {{#if cobaltSet}}enabled{{else}}disabled{{/if}}>
+        <i class="fas fa-trash"></i> Delete Local Cookie
+      </button>
+      <button data-action="setLocalCobalt" type="button" id="set-local-cobalt" class="munch-button" style="flex: 1;">
+        <i class="fas fa-key"></i> {{#if cobaltSet}}Update Local Cookie{{else}}Add Local Cookie{{/if}}
+      </button>
+    </div>
+  </fieldset>
+</section>

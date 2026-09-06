@@ -146,8 +146,8 @@ export class JenneDDBMainApp extends HandlebarsApplicationMixin(ApplicationV2) {
       e.preventDefault();
       const proxyUrl = html.find("#settings-proxy-url").val()?.trim();
       const cobaltCookie = html.find("#settings-cobalt-cookie").val()?.trim();
-      await game.settings.set(MODULE_ID, "proxyUrl", proxyUrl);
-      await game.settings.set(MODULE_ID, "cobaltCookie", cobaltCookie);
+      await game.settings.set(MODULE_ID, "api-endpoint", proxyUrl);
+      await game.settings.set(MODULE_ID, "cobalt-cookie", cobaltCookie);
       html.find("#status-settings").html('<span style="color: var(--success-color);"><i class="fas fa-check"></i> Settings saved successfully!</span>');
       ui.notifications.info("Jenne D&D Beyond Importer settings saved.");
     });

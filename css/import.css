@@ -1,0 +1,30 @@
+/* Jenne D&D Beyond Importer - Clean Import Reset */
+div.ddbCharacterName {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.ddbimporter-hidden {
+  visibility: hidden;
+}
+
+.ddbimporter-none {
+  display: none;
+}
+
+.fa-d-and-d-beyond {
+  color: #d4a857;
+  font-size: 1.2rem;
+}
+
+.fa-d-and-d-beyond.white {
+  color: #f0ebd8;
+}
+
+#ddbImporterButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px;
+}

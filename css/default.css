@@ -1,0 +1,13 @@
+/* Jenne D&D Beyond Importer - Clean Default Reset */
+.actions-buttons button {
+  min-width: max-content;
+  white-space: nowrap;
+}
+
+li.context-item i.active {
+  color: #f0d486;
+}
+
+.ddb-importer-folder-picker {
+  flex: 0 0 auto;
+}

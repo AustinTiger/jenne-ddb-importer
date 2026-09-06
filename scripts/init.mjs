@@ -1,6 +1,89 @@
 import "../dist/main.mjs";
 import { JenneDDBApi } from "./api.mjs";
 
+const COMPENDIUM_FOLDER_NAME = "Jenne D&D Beyond Importer";
+
+export async function organizeDDBCompendiums() {
+  if (!game.user.isGM) return;
+
+  try {
+    let folder = game.folders.find(f => f.type === "Compendium" && f.name === COMPENDIUM_FOLDER_NAME);
+    if (!folder) {
+      folder = await Folder.create({
+        name: COMPENDIUM_FOLDER_NAME,
+        type: "Compendium",
+        color: "#98020a",
+        sorting: "a"
+      });
+      console.log(`[DDB Importer] Created compendium folder: "${COMPENDIUM_FOLDER_NAME}"`);
+    }
+
+    const ddbPackKeys = new Set();
+
+    // 1. Collect configured compendium settings
+    const compendiumSettingKeys = [
+      "entity-spell-compendium",
+      "entity-item-compendium",
+      "entity-monster-compendium",
+      "entity-feat-compendium",
+      "entity-class-compendium",
+      "entity-subclass-compendium",
+      "entity-species-compendium",
+      "entity-background-compendium",
+      "entity-vehicle-compendium",
+      "entity-feature-compendium",
+      "entity-trait-compendium",
+      "entity-adventure-compendium",
+      "entity-journal-compendium",
+      "entity-table-compendium",
+      "entity-custom-compendium",
+      "entity-spell-2014-compendium",
+      "entity-item-2014-compendium",
+      "entity-monster-2014-compendium"
+    ];
+
+    compendiumSettingKeys.forEach(key => {
+      try {
+        const val = game.settings.get("jenne-ddb-importer", key);
+        if (val) ddbPackKeys.add(val);
+      } catch (e) {}
+    });
+
+    // 2. Iterate all packs in world
+    for (const pack of game.packs) {
+      const isDDB = ddbPackKeys.has(pack.collection) ||
+                    ddbPackKeys.has(pack.metadata.id) ||
+                    pack.metadata.packageName === "jenne-ddb-importer" ||
+                    pack.metadata.packageName === "ddb-importer" ||
+                    pack.metadata.label.startsWith("DDB ") ||
+                    pack.metadata.label.startsWith("Jenne DDB ");
+
+      if (isDDB && pack.folder?.id !== folder.id) {
+        console.log(`[DDB Importer] Moving compendium "${pack.metadata.label}" into "${COMPENDIUM_FOLDER_NAME}" folder`);
+        try {
+          await pack.setFolder(folder.id);
+        } catch (err) {
+          try {
+            await pack.setFolder(folder);
+          } catch (e) {
+            console.warn(`[DDB Importer] Could not set folder for pack ${pack.metadata.label}:`, e);
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.error("[DDB Importer] Error organizing compendiums into folder:", err);
+  }
+}
+
+Hooks.once("ready", async () => {
+  await organizeDDBCompendiums();
+});
+
+Hooks.on("ddb-importer.compendiumCreationComplete", async () => {
+  await organizeDDBCompendiums();
+});
+
 const openMuncher = () => {
   if (globalThis.DDBImporter?.DDBMuncher) {
     new globalThis.DDBImporter.DDBMuncher().render({ force: true });
@@ -16,7 +99,8 @@ const openMuncher = () => {
 
 globalThis.JenneDDBImporter = {
   api: JenneDDBApi,
-  openMuncher
+  openMuncher,
+  organizeDDBCompendiums
 };
 
 // Hook into Actor Sheet Header Buttons (V1 sheets)
@@ -164,6 +248,18 @@ const attachCobaltListeners = (html) => {
           return;
         }
 
+        const proxyInput = root.querySelector("#custom-proxy-url-input") || root.querySelector('input[name="api-endpoint"]');
+        const proxyVal = proxyInput ? proxyInput.value.trim() : null;
+        if (proxyVal) {
+          try {
+            await game.settings.set("jenne-ddb-importer", "api-endpoint", proxyVal);
+            await game.settings.set("jenne-ddb-importer", "custom-proxy", true);
+          } catch (e) {}
+        }
+        try {
+          await game.settings.set("jenne-ddb-importer", "cobalt-cookie", cookieVal);
+        } catch (e) {}
+
         let isAuth = false;
         let message = "";
         if (globalThis.JenneDDBImporter?.api?.checkCobalt) {
@@ -171,7 +267,8 @@ const attachCobaltListeners = (html) => {
           isAuth = res.success;
           message = res.message;
         } else {
-          const res = await fetch("https://ddb.jenne.vip/proxy/auth", {
+          const proxyUrl = (proxyVal || "https://ddb-proxy.clemson.engineer").replace(/\/$/, "");
+          const res = await fetch(`${proxyUrl}/proxy/auth`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ cobalt: cookieVal })
@@ -201,4 +298,3 @@ const attachCobaltListeners = (html) => {
 Hooks.on("renderApplication", (app, html) => attachCobaltListeners(html));
 Hooks.on("renderFormApplication", (app, html) => attachCobaltListeners(html));
 Hooks.on("renderApplicationV2", (app, html) => attachCobaltListeners(html));
-

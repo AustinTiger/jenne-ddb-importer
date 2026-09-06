@@ -1,0 +1,28 @@
+<section id="ddb-character-manager-import-main" class="tab {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+  <fieldset>
+    <legend><i class="fas fa-tasks"></i> Update Targets</legend>
+    <p class="hint" style="margin-bottom: 10px;">Select which character components should be imported from D&D Beyond into this actor:</p>
+    <div class="form-group stacked checkbox-grid">
+      <div class="form-fields" style="--num-cols:5;">
+        {{#each importPolicies}}
+        <label class="checkbox jenne-checkbox-card">
+          <dnd5e-checkbox name="{{this.name}}" id="{{this.name}}" data-section="{{this.name}}" {{#if this.isChecked}}checked{{/if}}></dnd5e-checkbox>
+          <span>{{this.label}}</span>
+        </label>
+        {{/each}}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-info-circle"></i> Import Information</legend>
+    <p class="hint">To import complete spell lists, private homebrew, and purchased sourcebooks, ensure your Cobalt Cookie or Jenne Proxy connection is verified in D&D Beyond Muncher $\rightarrow$ Settings.</p>
+  </fieldset>
+
+  <div style="margin-top: 14px;">
+    <button data-action="importCharacter" type="button" id="dndbeyond-character-import-start" class="munch-button jenne-btn-hero"
+      {{#if actor.flags.ddbimporter.dndbeyond.characterId}}enabled{{else}}disabled{{/if}}>
+      <i class="fas fa-cloud-download-alt"></i> Start Character Import
+    </button>
+  </div>
+</section>

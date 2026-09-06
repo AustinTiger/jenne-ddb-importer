@@ -1,0 +1,25 @@
+<section id="ddb-character-manager-import-automation" class="tab {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+
+  <fieldset>
+    <legend><i class="fas fa-info-circle"></i> Information</legend>
+    <p class="hint">Active effects and visual automations attached to imported features and spells (such as Automated Animations and Sequencer macros).</p>
+    {{#if installedModulesText}}<p class="hint">{{{installedModulesText}}}</p>{{/if}}
+  </fieldset>
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-magic"></i> Automation Options</legend>
+    <div class="effect-import-config">
+      {{#each effectImportConfig}}
+      <div class="form-group character-import-policy-config">
+        <label class="ddbimporter-long">{{ this.label }}</label>
+        <div class="form-fields">
+          <dnd5e-checkbox name="{{this.name}}" id="{{this.name}}" {{#if this.isChecked}}checked{{/if}}
+          data-section="{{this.name}}" {{#if this.enabled}}enabled{{else}}disabled{{/if}}></dnd5e-checkbox>
+        </div>
+        <p class="hint">{{{this.hint}}}</p>
+      </div>
+      {{/each}}
+    </div>
+  </fieldset>
+
+</section>

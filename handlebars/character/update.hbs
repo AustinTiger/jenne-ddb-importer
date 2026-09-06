@@ -1,0 +1,50 @@
+<section id="ddb-character-manager-sync" class="tab {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-group="{{tab.group}}" data-tab="{{tab.id}}">
+
+  <fieldset>
+    <legend><i class="fas fa-sync-alt"></i> Update Selection</legend>
+    <p class="hint" style="margin-bottom: 10px;">Select which changes made in Foundry VTT should be synchronized back to D&D Beyond:</p>
+
+    <div class="form-group stacked checkbox-grid">
+      <div class="form-fields" style="--num-cols:5;">
+        {{#each syncConfig}}
+        <label class="checkbox jenne-checkbox-card">
+          <dnd5e-checkbox name="{{this.name}}" id="{{this.name}}"
+            data-section="{{this.name}}" {{#if this.isChecked}}checked{{/if}}
+            {{#if this.enabled}}enabled{{else}}disabled{{/if}}></dnd5e-checkbox>
+          <span>{{this.label}}</span>
+        </label>
+        {{/each}}
+      </div>
+    </div>
+  </fieldset>
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-info-circle"></i> Sync Information</legend>
+    <p class="hint">HP, spell slots, currency, and conditions are synced directly to your linked D&D Beyond sheet via your active session token or self-hosted Jenne Proxy.</p>
+  </fieldset>
+
+  <div style="margin-top: 14px;">
+    <button data-action="updateCharacter" type="button" id="dndbeyond-character-update" class="munch-button jenne-btn-hero"
+      {{#if syncEnabled}}enabled{{else if useLocalPatreonKeyAndItemsMunched}}enabled{{else}}disabled{{/if}}>
+      <i class="fas fa-cloud-upload-alt"></i> Update D&D Beyond with Changes
+    </button>
+  </div>
+
+  {{#if dynamicUpdateAllowed}}
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-bolt"></i> Real-time Dynamic Updates</legend>
+
+    <div class="form-group dndbeyond-character-dynamic-update">
+      <label class="ddbimporter-long"><strong>Enable Real-time Dynamic Sync?</strong></label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="dndbeyond-character-dynamic-update" id="dndbeyond-character-dynamic-update"
+        {{#if dynamicUpdateStatus}}checked{{/if}}
+        data-section="dndbeyond-character-dynamic-update"
+        {{#if dynamicUpdateAllowed}}enabled{{else}}disabled{{/if}}></dnd5e-checkbox>
+      </div>
+      <p class="hint">Automatically pushes character updates (damage, spell use, resource changes) to D&D Beyond in the background as they occur during gameplay.</p>
+    </div>
+  </fieldset>
+  {{/if}}
+
+</section>

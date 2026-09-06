@@ -1,0 +1,45 @@
+<section id="ddb-importer-muncher-munch-settings" class="tab ddb-muncher {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+  
+  <fieldset>
+    <legend><i class="fas fa-image"></i> Global Artwork & Images</legend>
+    <p class="hint">Global settings applied across all munchers (Monsters, Spells, Items, Vehicles).</p>
+    
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Use D&D Beyond Images?</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="munching-policy-use-ddb-images" id="munching-policy-use-ddb-images" {{#if useDDBImages}}checked{{/if}} data-section="useDDBImages"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Download and assign official artwork and avatars from D&D Beyond.</p>
+    </div>
+
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Use Generic Item/Spell Images?</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="munching-policy-use-generic-images" id="munching-policy-use-generic-images" {{#if useGenericImages}}checked{{/if}} data-section="useGenericImages"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Assign high quality fallback icons when an item or spell does not have a unique illustration.</p>
+    </div>
+  </fieldset>
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-flask"></i> Global Homebrew Content</legend>
+    <p class="hint">Controls whether custom homebrew created or favorited in your D&D Beyond account is imported.</p>
+    
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Import Homebrew Content?</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="munching-policy-use-homebrew" id="munching-policy-use-homebrew" {{#if useHomebrew}}checked{{/if}} data-section="useHomebrew"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Include your personal D&D Beyond homebrew creations during monster, spell, and item munching.</p>
+    </div>
+
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Import Only Homebrew?</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="munching-policy-use-homebrew-only" id="munching-policy-use-homebrew-only" {{#if useHomebrewOnly}}checked{{/if}} data-section="useHomebrewOnly"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Only import homebrew content, skipping all standard published materials.</p>
+    </div>
+  </fieldset>
+
+</section>

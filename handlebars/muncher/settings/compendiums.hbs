@@ -1,0 +1,37 @@
+<section id="ddb-importer-muncher-compendiums" class="tab ddb-muncher {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+  
+  <fieldset>
+    <legend><i class="fas fa-atlas"></i> Target Compendiums</legend>
+    <p class="hint" style="margin-bottom: 12px;">Select the compendium packs where imported content will be stored.</p>
+    
+    {{#each compendiums}}
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label>{{this.name}}</label>
+        <div class="form-fields" style="display: flex; gap: 6px;">
+          <select name="{{this.setting}}" id="{{this.setting}}" style="flex: 1;">
+            {{#each this.compendiums}}
+              <option value="{{@key}}" {{#if this.selected}}selected{{/if}}>{{this.label}}</option>
+            {{/each}}
+          </select>
+          <button data-action="emptyCompendium" data-setting="{{this.setting}}" type="button" class="munch-button" title="Empty this compendium" {{#unless this.hasCompendium}}disabled{{/unless}}>
+            <i class="fas fa-trash"></i> Empty
+          </button>
+        </div>
+      </div>
+      <hr style="border-color: var(--jenne-border); margin: 8px 0;">
+    {{/each}}
+  </fieldset>
+
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-tools"></i> Compendium Management</legend>
+    <div style="display: flex; gap: 10px;">
+      <button data-action="deleteAndRecreateCompendiums" type="button" class="munch-button" style="flex: 1;">
+        <i class="fas fa-recycle"></i> Delete & Recreate DDB Compendiums
+      </button>
+      <button data-action="recreateMissingCompendiums" type="button" class="munch-button" style="flex: 1;">
+        <i class="fas fa-plus-circle"></i> Recreate Missing Compendiums
+      </button>
+    </div>
+  </fieldset>
+
+</section>

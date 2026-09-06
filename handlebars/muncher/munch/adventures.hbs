@@ -1,0 +1,102 @@
+<section id="ddb-importer-muncher-adventures" class="tab ddb-muncher {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+
+<div class="ddb-adventure-browser-root">
+  <header class="ddb-adventure-browser-header">
+    <div class="ddb-adventure-browser-header-top" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+      <h3 style="margin: 0; font-size: 15px;"><i class="fas fa-book-open"></i> Adventure Catalog & Importer</h3>
+      <div class="ddb-adventure-browser-header-actions" style="display: flex; gap: 8px; align-items: center;">
+        <input type="text" id="adventure-browser-search" placeholder="Search adventures..." value="{{searchTerm}}" style="width: 220px;" />
+        <label class="ddb-adventure-browser-option" style="font-size: 11.5px; display: flex; align-items: center; gap: 4px;">
+          <input type="checkbox" class="adv-opt-hide-unowned" {{#if hideUnowned}}checked{{/if}} /> Owned only
+        </label>
+        <button data-action="reloadOwned" type="button" class="munch-button" {{#if loadingOwned}}disabled{{/if}}>
+          <i class="fas fa-sync {{#if loadingOwned}}fa-spin{{/if}}"></i> Refresh Owned
+        </button>
+      </div>
+    </div>
+
+    <fieldset class="ddb-adventure-browser-settings" style="margin-bottom: 14px;">
+      <legend><i class="fas fa-sliders-h"></i> Adventure Import Options</legend>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; font-size: 11.5px;">
+        <label class="ddb-adventure-browser-option" title="Import all detected scenes. Uncheck to choose individual scenes.">
+          <input type="checkbox" class="adv-opt-all-scenes" {{#if allScenes}}checked{{/if}} /> Import all scenes (uncheck to choose)
+        </label>
+        <label class="ddb-adventure-browser-option" title="Import every referenced monster into the world, not just placed ones.">
+          <input type="checkbox" class="adv-opt-all-actors" {{#if allActorsToWorld}}checked{{/if}} /> Import all monsters to world
+        </label>
+        <label class="ddb-adventure-browser-option" title="Also copy the imported journals and tables into DDB compendiums.">
+          <input type="checkbox" class="adv-opt-add-compendiums" {{#if addToCompendiums}}checked{{/if}} /> Add journals/tables to compendiums
+        </label>
+        <label class="ddb-adventure-browser-option" title="Import into compendiums only, skipping world documents.">
+          <input type="checkbox" class="adv-opt-compendium-only" {{#if compendiumOnly}}checked{{/if}} /> Compendium only (skip world)
+        </label>
+        <label class="ddb-adventure-browser-option" title="Prefer 2024 monster statblocks where available.">
+          <input type="checkbox" class="adv-opt-2024-monsters" {{#if use2024Monsters}}checked{{/if}} /> Use 2024 monsters
+        </label>
+        <label class="ddb-adventure-browser-option" title="Make imported journals and tables observable by all players.">
+          <input type="checkbox" class="adv-opt-observe-all" {{#if observeAll}}checked{{/if}} /> Journals/tables observable by players
+        </label>
+      </div>
+    </fieldset>
+  </header>
+
+  {{#if ownershipUnavailable}}
+    <p class="ddb-adventure-browser-banner" style="background: rgba(255, 152, 0, 0.15); border: 1px solid #ff9800; padding: 6px 10px; border-radius: 4px; font-size: 11.5px;">
+      <i class="fas fa-triangle-exclamation"></i>
+      Could not verify owned content (no cobalt cookie or proxy unavailable) - showing all adventures.
+    </p>
+  {{/if}}
+
+  <div class="ddb-adventure-browser-body" style="max-height: 400px; overflow-y: auto;">
+    {{#if loadingOwned}}
+      <p class="ddb-adventure-browser-status"><i class="fas fa-spinner fa-spin"></i> Checking owned content...</p>
+    {{/if}}
+
+    {{#each categories}}
+      <section class="ddb-adventure-category {{#if this.expanded}}expanded{{/if}}" style="margin-bottom: 8px;">
+        <button type="button" class="ddb-adventure-category-header" data-action="toggleCategory" data-category-id="{{this.id}}" style="width: 100%; text-align: left; display: flex; justify-content: space-between; align-items: center;">
+          <span><i class="fas fa-chevron-{{#if this.expanded}}down{{else}}right{{/if}}"></i> {{this.name}}</span>
+          <span class="ddb-adventure-category-count" style="font-size: 11px; opacity: 0.7;">{{this.count}}</span>
+        </button>
+        {{#if this.expanded}}
+          <ul class="ddb-adventure-list" style="list-style: none; padding: 6px 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">
+            {{#each this.adventures}}
+              <li class="ddb-adventure-card {{#if this.notOwned}}not-owned{{/if}}" style="display: flex; justify-content: space-between; align-items: center; padding: 6px 10px; background: var(--jenne-bg-tertiary); border: 1px solid var(--jenne-border); border-radius: 4px;">
+                <div class="ddb-adventure-cover" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                  {{#if this.cover}}
+                    <img src="{{this.cover}}" alt="{{this.name}}" style="max-width: 36px; max-height: 36px; border-radius: 2px;" loading="lazy" />
+                  {{else}}
+                    <i class="fas fa-book fa-2x"></i>
+                  {{/if}}
+                </div>
+                <div class="ddb-adventure-content" style="flex: 1;">
+                  <div class="ddb-adventure-meta">
+                    <strong>{{this.name}}</strong>
+                    <span class="hint" style="font-size: 11px; margin-left: 6px;">{{this.code}}</span>
+                    {{#if this.notOwned}}<span class="ddb-adventure-tag ddb-adventure-tag-unowned" style="font-size: 10px; padding: 1px 4px; background: rgba(255, 0, 0, 0.2); border-radius: 2px; margin-left: 6px;">Not owned</span>{{/if}}
+                    {{#if this.enhanced}}<span class="ddb-adventure-tag ddb-adventure-tag-enhanced" style="font-size: 10px; padding: 1px 4px; background: rgba(212, 168, 87, 0.2); border-radius: 2px; margin-left: 6px; color: var(--jenne-text-active);">Enhanced</span>{{/if}}
+                  </div>
+                </div>
+                <div class="ddb-adventure-actions">
+                  <button type="button" data-action="importAdventure" data-book-id="{{this.id}}" class="munch-button" {{#if this.importing}}disabled{{/if}} {{#if this.notOwned}}disabled{{/if}}>
+                    {{#if this.importing}}
+                      <i class="fas fa-spinner fa-spin"></i> Importing
+                    {{else}}
+                      <i class="fas fa-download"></i> Import
+                    {{/if}}
+                  </button>
+                </div>
+              </li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </section>
+    {{else}}
+      {{#unless loadingOwned}}
+        <p class="hint">No adventures match the current filter.</p>
+      {{/unless}}
+    {{/each}}
+  </div>
+</div>
+
+</section>

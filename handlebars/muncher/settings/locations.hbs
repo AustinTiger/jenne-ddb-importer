@@ -1,0 +1,51 @@
+<section id="ddb-importer-muncher-locations" class="tab ddb-muncher {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
+  
+  <fieldset class="jenne-locations-fieldset">
+    <legend><i class="fas fa-folder-open"></i> File Save Locations</legend>
+    
+    <div class="jenne-locations-list">
+      {{#each directories}}
+        <div class="jenne-location-row">
+          <label class="jenne-location-label" data-tooltip="{{this.description}}">
+            <i class="{{this.icon}}"></i>
+            <span>{{this.name}}</span>
+            <i class="fas fa-info-circle jenne-hint-icon"></i>
+          </label>
+          <div class="jenne-location-input-group">
+            <input class="setup-config jenne-location-input" type="text" data-dtype="Directory" name="{{this.key}}" value="{{this.value}}" placeholder="[data] ddb-images/..." />
+            <button type="button" data-action="selectDirectory" id="button-{{this.key}}" class="ddb-importer-folder-picker munch-button jenne-browse-btn" data-target="{{this.key}}" title="Browse directory">
+              <i class="fas fa-folder-open"></i> Browse
+            </button>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+  </fieldset>
+
+  <fieldset class="jenne-locations-fieldset" style="margin-top: 12px;">
+    <legend><i class="fas fa-images"></i> Image Storage Options</legend>
+    
+    <div class="jenne-options-grid-2col">
+      <div class="form-group jenne-compact-option">
+        <label data-tooltip="Converts downloaded images to WebP format for reduced disk usage and faster browser rendering.">
+          <strong>Convert images to WebP?</strong>
+          <i class="fas fa-info-circle jenne-hint-icon"></i>
+        </label>
+        <div class="form-fields">
+          <dnd5e-checkbox {{#if use-webp}}checked{{/if}} class="setup-config" type="checkbox" name="use-webp" data-section="useWebP"></dnd5e-checkbox>
+        </div>
+      </div>
+
+      <div class="form-group jenne-compact-option">
+        <label data-tooltip="Organizes downloaded images into dedicated sub-folders categorized by creature type, equipment slot, etc.">
+          <strong>Use deep file paths?</strong>
+          <i class="fas fa-info-circle jenne-hint-icon"></i>
+        </label>
+        <div class="form-fields">
+          <dnd5e-checkbox {{#if use-deep-file-paths}}checked{{/if}} class="setup-config" type="checkbox" name="use-deep-file-paths" data-section="useDeepFilePaths"></dnd5e-checkbox>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+
+</section>
