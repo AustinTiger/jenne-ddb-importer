@@ -7,7 +7,7 @@
     <div class="jenne-munch-hero-content" style="display: flex; flex-direction: column; gap: 10px; align-items: stretch; text-align: center;">
       <div>
         <h4 style="margin: 0 0 4px 0; color: var(--jenne-text-active); font-size: 13.5px; font-family: 'Cinzel', Georgia, serif; font-weight: 700;">One-Click Full Library Build</h4>
-        <p class="hint" style="margin: 0; font-size: 11.5px; line-height: 1.45;">Extracts and builds all Spells, Items, Feats, Backgrounds, Species, Classes, Monsters, Vehicles, and Frames automatically in the correct dependency order.</p>
+        <p class="hint" style="margin: 0; font-size: 11.5px; line-height: 1.45;">Extracts and builds all Spells, Items, Monsters, Vehicles, and Frames automatically in the correct dependency order.</p>
       </div>
       <button data-action="parseAllMunchers" type="button" class="munch-button jenne-btn-hero" style="width: 100% !important; height: 36px !important; font-size: 13px !important; margin: 4px 0 0 0 !important;">
         <i class="fas fa-file-import"></i> Import Everything
@@ -86,74 +86,6 @@
         </div>
         <button data-action="parseMonstersWithDependencies" type="button" id="munch-monsters-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
           <i class="fas fa-skull"></i> Import Monsters
-        </button>
-      </div>
-
-      <!-- Feats & Features -->
-      <div class="jenne-munch-row">
-        <div class="jenne-munch-row-left">
-          <i class="fas fa-award jenne-munch-card-icon"></i>
-          <div class="jenne-munch-row-info">
-            <div class="jenne-munch-row-title-bar">
-              <span class="jenne-munch-card-title">Feats & Features</span>
-              <span class="hint">General, Origin & Fighting Styles</span>
-            </div>
-            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts origin feats, general feats, epic boons, and prerequisite advancements.</p>
-          </div>
-        </div>
-        <button data-action="parseFeats" type="button" id="munch-feats-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
-          <i class="fas fa-award"></i> Import Feats
-        </button>
-      </div>
-
-      <!-- Backgrounds -->
-      <div class="jenne-munch-row">
-        <div class="jenne-munch-row-left">
-          <i class="fas fa-book-reader jenne-munch-card-icon"></i>
-          <div class="jenne-munch-row-info">
-            <div class="jenne-munch-row-title-bar">
-              <span class="jenne-munch-card-title">Backgrounds</span>
-              <span class="hint">Origin Backgrounds & Proficiencies</span>
-            </div>
-            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts 2014 & 2024 character backgrounds with tool/skill proficiencies and origin feats.</p>
-          </div>
-        </div>
-        <button data-action="parseBackgroundsWithDependencies" type="button" id="munch-backgrounds-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
-          <i class="fas fa-book-reader"></i> Import Backgrounds
-        </button>
-      </div>
-
-      <!-- Species / Races -->
-      <div class="jenne-munch-row">
-        <div class="jenne-munch-row-left">
-          <i class="fas fa-dna jenne-munch-card-icon"></i>
-          <div class="jenne-munch-row-info">
-            <div class="jenne-munch-row-title-bar">
-              <span class="jenne-munch-card-title">Species / Races</span>
-              <span class="hint">Lineages, Subraces & Traits</span>
-            </div>
-            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts species data, traits, racial spells, speed, and size advancements (auto-imports feats & spells if needed).</p>
-          </div>
-        </div>
-        <button data-action="parseSpeciesWithDependencies" type="button" id="munch-species-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
-          <i class="fas fa-dna"></i> Import Species
-        </button>
-      </div>
-
-      <!-- Classes & Subclasses -->
-      <div class="jenne-munch-row">
-        <div class="jenne-munch-row-left">
-          <i class="fas fa-hat-wizard jenne-munch-card-icon"></i>
-          <div class="jenne-munch-row-info">
-            <div class="jenne-munch-row-title-bar">
-              <span class="jenne-munch-card-title">Classes & Subclasses</span>
-              <span class="hint">Progression, Features & Spells</span>
-            </div>
-            <p class="hint jenne-munch-desc" style="margin: 2px 0 0 0 !important;">Extracts core class advancement trees, subclass archetypes, and class features (auto-imports feats & spells if needed).</p>
-          </div>
-        </div>
-        <button data-action="parseClassesWithDependencies" type="button" id="munch-classes-start" class="munch-button jenne-munch-action-btn" style="width: 170px !important; flex-shrink: 0;">
-          <i class="fas fa-hat-wizard"></i> Import Classes
         </button>
       </div>
 
