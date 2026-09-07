@@ -1,5 +1,6 @@
 <section id="ddb-importer-muncher-general" class="tab ddb-muncher {{ tab.cssClass }} {{#if tab.active}} active{{/if}}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
   
+  <!-- D&D Beyond Authentication & Proxy -->
   <fieldset>
     <legend><i class="fas fa-key"></i> D&D Beyond Authentication & Proxy</legend>
     
@@ -21,19 +22,67 @@
       </div>
       <p class="hint">The base URL of your self-hosted Jenne DDB Proxy (e.g. <code>https://ddb-proxy.clemson.engineer</code>).</p>
     </div>
+  </fieldset>
 
-    <div class="form-group" style="margin-top: 10px;">
-      <label>Dynamic Character Sync</label>
-      <div class="form-fields">
-        <dnd5e-checkbox name="dynamic-sync" id="dynamic-sync-checkbox" {{#if dynamicSync}}checked{{/if}} data-section="dynamicSync"></dnd5e-checkbox>
+  <!-- D&D Beyond Campaign -->
+  <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-users"></i> D&D Beyond Campaign</legend>
+    <p class="hint">Link your D&D Beyond Campaign to enable campaign content sharing, character imports, and party synchronization.</p>
+
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Campaign</label>
+      <div class="form-fields" style="display: flex; gap: 8px;">
+        <select name="campaign-select" id="settings-campaign-select" class="form-select" style="flex: 1;">
+          <option value="">-- Select Linked Campaign --</option>
+          {{#each availableCampaigns}}
+          <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.name}}{{#if this.dmUsername}} ({{this.dmUsername}}){{/if}} - ID: {{this.id}}</option>
+          {{/each}}
+        </select>
+        <button type="button" id="btn-fetch-campaigns-settings" class="munch-button jenne-form-inline-btn" style="height: 30px !important; padding: 0 10px !important; font-family: 'Inter', sans-serif !important; font-size: 12px !important; font-weight: 500 !important; text-transform: none !important; letter-spacing: normal !important; white-space: nowrap;">
+          <i class="fas fa-sync" style="font-size: 11px;"></i> Fetch Campaigns
+        </button>
       </div>
-      <p class="hint">Enable real-time two-way synchronization of HP, spell slots, currency, and conditions between Foundry VTT and D&D Beyond character sheets.</p>
+    </div>
+
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Manual Campaign ID</label>
+      <div class="form-fields">
+        <input type="text" id="settings-campaign-id-input" name="campaign-id" value="{{campaignId}}" placeholder="e.g. 361284" />
+      </div>
+      <p class="hint">The numeric ID from your D&D Beyond campaign URL (e.g. <code>https://www.dndbeyond.com/campaigns/361284</code>).</p>
     </div>
   </fieldset>
 
+  <!-- Character Synchronization -->
   <fieldset style="margin-top: 14px;">
+    <legend><i class="fas fa-sync"></i> Character Synchronization</legend>
+    <p class="hint">Configure real-time two-way synchronization and export policies for characters.</p>
 
+    <div class="form-group" style="margin-top: 8px;">
+      <label>Dynamic Character Sync (Currency & Equipment)</label>
+      <div class="form-fields">
+        <dnd5e-checkbox name="dynamic-sync" id="dynamic-sync-checkbox" {{#if dynamicSync}}checked{{/if}} data-section="dynamicSync"></dnd5e-checkbox>
+      </div>
+      <p class="hint">Enable real-time synchronization of currency and equipment changes made on Foundry VTT character sheets back to D&D Beyond.</p>
+    </div>
 
+    <div class="form-group stacked checkbox-grid" style="margin-top: 12px;">
+      <label style="font-weight: 600; font-size: 12px; margin-bottom: 4px; display: block;">Export Attributes to DDB</label>
+      <div class="form-fields" style="display: flex; gap: 32px; align-items: center;">
+        {{#each syncConfig}}
+        <label class="checkbox" style="display: flex; align-items: center; gap: 6px; font-size: 12px;">
+          <dnd5e-checkbox name="{{this.name}}" id="setting-{{this.name}}" class="ddb-export-policy-checkbox"
+            data-section="{{this.name}}" {{#if this.isChecked}}checked{{/if}}
+            {{#if this.enabled}}enabled{{else}}disabled{{/if}}></dnd5e-checkbox>
+          <span>{{this.label}}</span>
+        </label>
+        {{/each}}
+      </div>
+      <p class="hint" style="margin-top: 4px;">Choose which character attributes are pushed to D&D Beyond during manual or party exports.</p>
+    </div>
+  </fieldset>
+
+  <!-- Shared Settings -->
   <fieldset style="margin-top: 14px;">
     <legend><i class="fas fa-sliders-h"></i> Shared Settings</legend>
     {{#each genericConfig}}
@@ -48,22 +97,22 @@
     {{/each}}
   </fieldset>
 
+  <!-- Adventure & Sourcebook Import Settings -->
   <fieldset style="margin-top: 14px;">
-    <legend><i class="fas fa-magic"></i> Gameplay Rule Automations</legend>
-    <p class="hint">Optional, lightweight automation enhancements for specific class features.</p>
+    <legend><i class="fas fa-book-reader"></i> Adventure & Sourcebook Import Settings</legend>
+    <p class="hint">Adventures and sourcebooks are always imported directly to compendium packs with 2024 monsters enabled.</p>
     
-    {{#each enhancementConfig}}
-    <div class="form-group enhancements-config" style="margin-top: 8px;">
-      <label>{{ this.label }}</label>
+    <div class="form-group adventure-config" style="margin-top: 8px;">
+      <label>Journals/tables observable by all players?</label>
       <div class="form-fields">
-        <dnd5e-checkbox name="{{this.name}}" id="enhancements-config-{{this.name}}" {{#if this.isChecked}}checked{{/if}}
-        data-section="{{this.name}}" {{#if this.enabled}}enabled{{else}}disabled{{/if}}></dnd5e-checkbox>
+        <dnd5e-checkbox name="adventure-policy-observe-all" id="adventure-config-observe-all" {{#if adventureObserveAll}}checked{{/if}}
+        data-section="adventure-policy-observe-all" enabled></dnd5e-checkbox>
       </div>
-      <p class="hint">{{{this.hint}}}</p>
+      <p class="hint">Grant Observer permission to all players for imported adventure journals and rollable tables in the compendiums.</p>
     </div>
-    {{/each}}
   </fieldset>
 
+  <!-- Monster Configuration -->
   <fieldset style="margin-top: 14px;">
     <legend><i class="fas fa-dragon"></i> Monster Configuration</legend>
     
@@ -93,4 +142,3 @@
   </fieldset>
 
 </section>
-
