@@ -48,10 +48,10 @@
     <p class="hint warning">{{charactersError}}</p>
     {{else if campaignCharacters.length}}
     <div class="ddb-party-button-row ddb-party-character-actions">
-      <button type="button" data-action="importSelected" class="dnd5e2">Import Selected Characters</button>
+      <button type="button" data-action="importSelected" class="dnd5e2">Import / Update Selected from DDB</button>
       <button type="button" data-action="updateSelected" class="dnd5e2"
       {{#if syncEnabled}}enabled{{else if useLocalPatreonKeyAndItemsMunched}}enabled{{else}}disabled{{/if}}>
-      {{#if itemsMunched}}Update to DDB Selected Characters{{else}}Update Unavailable{{/if}}
+      {{#if itemsMunched}}Export Selected to DDB{{else}}Export Unavailable{{/if}}
       </button>
     </div>
     <table class="ddb-party-character-list">
@@ -96,7 +96,7 @@
         {{/each}}
       </tbody>
     </table>
-    <p class="hint">"Import" imports new characters or updates already-imported characters from D&amp;D Beyond into Foundry. "Update to DDB" pushes Foundry actor changes back to D&amp;D Beyond.</p>
+    <p class="hint"><strong>Import / Update from DDB</strong>: Imports new characters or updates already-imported characters from D&amp;D Beyond into Foundry.<br/><strong>Export to DDB</strong>: Pushes currency and equipment changes made in Foundry back to D&amp;D Beyond.</p>
     {{else}}
     <p class="hint">No characters found for this campaign.</p>
     {{/if}}
