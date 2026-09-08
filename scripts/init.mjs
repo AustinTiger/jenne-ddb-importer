@@ -37,8 +37,7 @@ export async function organizeDDBCompendiums() {
       "entity-adventure-compendium",
       "entity-journal-compendium",
       "entity-table-compendium",
-      "entity-custom-compendium",
-      "entity-spell-2014-compendium",
+            "entity-spell-2014-compendium",
       "entity-item-2014-compendium",
       "entity-monster-2014-compendium"
     ];
