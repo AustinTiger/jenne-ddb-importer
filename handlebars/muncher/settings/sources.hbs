@@ -5,18 +5,27 @@
       <h3><i class="fas fa-book-open"></i> Content Sources & Book Filter</h3>
       <p class="hint">Filter entity munching (spells, items, monsters, vehicles) and adventure imports to your accessible sourcebooks. Check a category header to select or deselect all books in that group.</p>
     </div>
-    <div class="jenne-sources-header-controls" style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
+    <div class="jenne-sources-header-controls" style="display: flex; align-items: center; gap: 10px; flex-shrink: 0;">
+      <button type="button" id="btn-refresh-owned-sources" class="munch-button jenne-form-inline-btn" title="Refresh accessible books from D&amp;D Beyond" style="height: 28px !important; padding: 0 10px !important; font-size: 11.5px !important; display: inline-flex; align-items: center; gap: 5px;">
+        <i class="fas fa-sync"></i> Refresh
+      </button>
       <label class="jenne-sources-owned-toggle" style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--jenne-text-active, #c8a86b); background: rgba(0,0,0,0.3); padding: 5px 12px; border-radius: 4px; border: 1px solid var(--jenne-border, rgba(255,255,255,0.15));">
         <input type="checkbox" id="sources-owned-and-shared-toggle" name="munching-policy-sources-owned-only" {{#if sourcesOwnedOnly}}checked{{/if}} style="margin: 0; cursor: pointer;" />
         <span>Owned and Shared</span>
       </label>
-      {{#if sourcesOwnedOnly}}
-        <div class="jenne-sources-status-pill success">
-          <i class="fas fa-check-circle"></i> {{userBookCount}} Accessible Books
-        </div>
+      {{#if userBooksLoaded}}
+        {{#if sourcesOwnedOnly}}
+          <div class="jenne-sources-status-pill success">
+            <i class="fas fa-check-circle"></i> {{userBookCount}} Accessible Books
+          </div>
+        {{else}}
+          <div class="jenne-sources-status-pill warning">
+            <i class="fas fa-globe"></i> Showing All {{totalBookCount}} Catalog Books
+          </div>
+        {{/if}}
       {{else}}
-        <div class="jenne-sources-status-pill warning">
-          <i class="fas fa-globe"></i> Showing All {{totalBookCount}} Catalog Books
+        <div class="jenne-sources-status-pill warning" title="Unable to retrieve owned books from D&amp;D Beyond. Check your Cobalt Cookie in General settings.">
+          <i class="fas fa-exclamation-triangle"></i> Showing All {{totalBookCount}} Books
         </div>
       {{/if}}
     </div>
