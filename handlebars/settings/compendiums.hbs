@@ -37,21 +37,7 @@
     </div>
   </fieldset>
 
-  <fieldset>
-    <legend>Image settings</legend>
-    <div class="form-content">
-      {{#each compendiumSettings}}
-      <label class="checkbox">
-        <dnd5e-checkbox {{#if this.isChecked}}checked{{/if}} type="checkbox"
-          id="{{this.name}}"
-          name="{{this.name}}"
-          data-section="{{this.name}}" {{#if this.enabled}}enabled{{else}}disabled{{/if}}
-        ></dnd5e-checkbox>
-        <span> {{this.description}} </span>
-      </label>
-      {{/each}}
-    </div>
-  </fieldset>
+
 </div>
 
 </section>
