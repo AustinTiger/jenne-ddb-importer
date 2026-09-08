@@ -22,6 +22,7 @@ export async function organizeDDBCompendiums() {
 
     // 1. Collect configured compendium settings
     const compendiumSettingKeys = [
+      "entity-character-compendium",
       "entity-spell-compendium",
       "entity-item-compendium",
       "entity-monster-compendium",
