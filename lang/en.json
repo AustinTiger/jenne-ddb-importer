@@ -37,7 +37,7 @@
       "Title": "Welcome to D&D Beyond Importer!",
       "FirstTime": "It seems like you're using this module for the first time!",
       "SetupButton": "Open Configuration Dungeon",
-      "Setup": "D&D Beyond Importer requires some information before we can use it, chiefly linking it to your D&D Beyond account. Please take time to follow the documentation <a href=\"https://docs.ddb.mrprimate.co.uk/docs/ddb-importer/initial-setup\">here</a>. It's up to date and your best starting point.",
+      "Setup": "D&D Beyond Importer requires some information before we can use it, chiefly linking it to your D&D Beyond account. Please enter your Cobalt cookie to connect to your account.",
       "Later": "You can always change these settings later under 'Configure Settings > Module Settings > D&D Beyond Importer!'",
       "Fin": "Once setup is complete, you won't see this message again."
     },
@@ -91,7 +91,7 @@
       "monster-link-title.name": "Monster D&D Beyond link in title bar?",
       "monster-link-title.hint": "Otherwise it's a button next to the name. (Reload to take effect).",
       "cobalt-cookie.name": "DDB Cobalt Cookie",
-      "cobalt-cookie.hint": "You can get this using my Chrome extension https://github.com/MrPrimate/ddb-importer-chrome",
+      "cobalt-cookie.hint": "Enter your Cobalt cookie from D&D Beyond.",
       "campaign-id.name": "DDB Campaign URL or ID",
       "campaign-id.hint": "Enter the campaign URL or ID, e.g. https://www.dndbeyond.com/campaigns/12345 or 12345",
       "spells-on-items-as-activities.name": "Spells on Items As Activities",
