@@ -1,3 +1,40 @@
+// Universal Compendium Index Sanitizer
+// Prevents Foundry VTT server-backend fatal crash:
+// "TypeError: Cannot create property 'rules' on number '1'"
+// which occurs when indexFields contains both an ancestor path (e.g. "system.source")
+// and a child path (e.g. "system.source.rules"), causing server-side setProperty() to fail.
+export function patchCompendiumIndexSanitizer() {
+  const CompendiumCls = globalThis.CompendiumCollection ?? foundry?.documents?.collections?.CompendiumCollection;
+  if (!CompendiumCls || CompendiumCls.prototype._sanitizedGetIndex) return;
+
+  const origGetIndex = CompendiumCls.prototype.getIndex;
+  CompendiumCls.prototype._sanitizedGetIndex = origGetIndex;
+
+  CompendiumCls.prototype.getIndex = async function(options = {}) {
+    if (Array.isArray(options?.fields) && options.fields.length > 0) {
+      const currentFields = Array.from(this.indexFields || []);
+      const sorted = [...options.fields].sort((a, b) => (typeof a === "string" ? a.split(".").length : 0) - (typeof b === "string" ? b.split(".").length : 0));
+      const safeFields = [];
+      for (const f of sorted) {
+        if (!f || typeof f !== "string") continue;
+        const parts = f.split(".");
+        let hasAncestor = false;
+        for (let i = 1; i < parts.length; i++) {
+          const ancestor = parts.slice(0, i).join(".");
+          if (currentFields.includes(ancestor) || safeFields.includes(ancestor)) {
+            hasAncestor = true;
+            break;
+          }
+        }
+        if (!hasAncestor) safeFields.push(f);
+      }
+      options = { ...options, fields: safeFields };
+    }
+    return origGetIndex.call(this, options);
+  };
+}
+patchCompendiumIndexSanitizer();
+
 import "../dist/main.mjs";
 import { JenneDDBApi } from "./api.mjs";
 
