@@ -1097,4 +1097,10 @@
   box-shadow: 0 0 8px rgba(212, 168, 87, 0.3);
 }
 
-
+/* Ensure settings labels with checkboxes render cleanly without wrapping */
+.window-app#ddb-importer-settings .form-group:has(#dynamic-sync-checkbox) label,
+.window-app#ddb-importer-settings label[for="dynamic-sync-checkbox"] {
+  white-space: nowrap !important;
+  flex: 1 0 auto !important;
+  max-width: none !important;
+}
