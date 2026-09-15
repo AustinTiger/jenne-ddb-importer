@@ -35,6 +35,101 @@ export function patchCompendiumIndexSanitizer() {
 }
 patchCompendiumIndexSanitizer();
 
+// Universal Item Properties Migration Sanitizer
+// Prevents dnd5e fatal crash during document/compendium loading:
+// "TypeError: Failed data migration for Item5e: source.system.properties?.findSplice is not a function"
+// which occurs when items have source.system.properties as an Object ({ mgc: true }) or Set, rather than an Array.
+export function patchItemPropertiesMigration() {
+  // 1. Set.prototype.findSplice polyfill
+  if (typeof Set !== "undefined" && !Set.prototype.findSplice) {
+    Object.defineProperty(Set.prototype, "findSplice", {
+      value: function(predicate) {
+        for (const val of this) {
+          if (predicate(val)) {
+            this.delete(val);
+            return val;
+          }
+        }
+        return null;
+      },
+      configurable: true,
+      writable: true
+    });
+  }
+
+  // 2. Normalize properties on raw item source objects
+  function normalizeProperties(source) {
+    if (!source?.system?.properties) return;
+    const props = source.system.properties;
+    if (props instanceof Set) {
+      source.system.properties = Array.from(props);
+    } else if (typeof props === "object" && !Array.isArray(props)) {
+      source.system.properties = Object.keys(props).filter(k => Boolean(props[k]));
+    } else if (typeof props === "string") {
+      source.system.properties = [props];
+    }
+  }
+
+  // 3. Patch Item5e.migrateData
+  const patchItemClass = (ItemCls) => {
+    if (!ItemCls || ItemCls.prototype?._propertiesMigrationPatched) return;
+    if (ItemCls.prototype) ItemCls.prototype._propertiesMigrationPatched = true;
+    const origMigrateData = ItemCls.migrateData;
+    ItemCls.migrateData = function(source) {
+      normalizeProperties(source);
+      return origMigrateData.call(this, source);
+    };
+  };
+
+  const ItemCls = globalThis.dnd5e?.documents?.Item5e ?? CONFIG.Item?.documentClass;
+  if (ItemCls) patchItemClass(ItemCls);
+
+  // 4. Safe transformDurationData on BaseActivityData
+  const safeTransformDurationData = function(source, options) {
+    if (source.type === "spell") return {};
+    let concentration = false;
+    normalizeProperties(source);
+    const props = source.system?.properties;
+    if (Array.isArray(props)) {
+      concentration = Boolean(props.findSplice?.(p => p === "concentration"));
+    } else if (props instanceof Set) {
+      concentration = props.has("concentration");
+      props.delete("concentration");
+    } else if (props && typeof props === "object") {
+      concentration = Boolean(props.concentration);
+      delete props.concentration;
+    }
+    return {
+      concentration,
+      value: source.system?.duration?.value ?? null,
+      units: source.system?.duration?.units ?? "inst",
+      special: ""
+    };
+  };
+
+  const BaseActivity = globalThis.dnd5e?.dataModels?.activity?.BaseActivityData;
+  if (BaseActivity && !BaseActivity._durationDataPatched) {
+    BaseActivity._durationDataPatched = true;
+    BaseActivity.transformDurationData = safeTransformDurationData;
+  }
+
+  // 5. Hook "init" for late-registered classes
+  Hooks.once("init", () => {
+    const lateItemCls = globalThis.dnd5e?.documents?.Item5e ?? CONFIG.Item?.documentClass;
+    if (lateItemCls) patchItemClass(lateItemCls);
+
+    if (CONFIG.DND5E?.activityTypes) {
+      for (const act of Object.values(CONFIG.DND5E.activityTypes)) {
+        if (act.documentClass && !act.documentClass._durationDataPatched) {
+          act.documentClass._durationDataPatched = true;
+          act.documentClass.transformDurationData = safeTransformDurationData;
+        }
+      }
+    }
+  });
+}
+patchItemPropertiesMigration();
+
 import "../dist/main.mjs";
 import { JenneDDBApi } from "./api.mjs";
 
