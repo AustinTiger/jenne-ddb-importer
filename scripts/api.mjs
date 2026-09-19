@@ -106,4 +106,9 @@ export class JenneDDBApi {
   static async getCharacter(characterId) {
     return await this.post("/proxy/v5/character", { characterId });
   }
+
+  static async syncLegacySpells() {
+    const { syncLegacySpellsToCompendium } = await import("./init.mjs");
+    return await syncLegacySpellsToCompendium();
+  }
 }

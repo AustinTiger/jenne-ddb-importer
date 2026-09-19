@@ -413,56 +413,126 @@ Hooks.on("renderFormApplication", (app, html) => attachCobaltListeners(html));
 Hooks.on("renderApplicationV2", (app, html) => attachCobaltListeners(html));
 
 // Universal Spell Compendium Synchronizer
-// Ensures that key legacy spells (such as Friends, Thaumaturgy, Destructive Wave, Befuddlement)
-// are seeded into the active DDB spell compendium if not already present.
+// Ensures that all legacy spells are properly seeded into the active DDB spell compendium.
+// Rule: If a 2024 version exists, mark 2014 version as (Legacy) with rules="2014".
+// If unique to 2014, do not mark and treat as rules="2024" (clean name).
 export async function syncLegacySpellsToCompendium() {
   if (!game.user?.isGM) return;
   try {
     const compSetting = game.settings?.get("ddb-importer", "entity-spell-compendium") || "jenne-bag-of-holding.d-d-beyond-spells";
     const pack = game.packs?.get(compSetting);
-    if (!pack || pack.locked) return;
+    if (!pack) return;
 
-    const index = await pack.getIndex({ fields: ["name", "system.source.rules"] });
-    const existingNames = new Set(index.map(i => i.name?.toLowerCase().trim()));
+    if (pack.locked) {
+      try {
+        await pack.configure({ locked: false });
+      } catch (e) {
+        console.warn("[Jenne DDB Importer] Could not unlock pack:", e);
+      }
+    }
 
-    // Check if key legacy spells are missing
-    const needsSync = !existingNames.has("friends") || !existingNames.has("destructive wave") || !existingNames.has("thaumaturgy");
-    if (!needsSync) return;
+    const index = await pack.getIndex({ fields: ["name", "system.source.rules", "flags.ddbimporter.is2024", "flags.ddbimporter.is2014"] });
+    const existingExactNames = new Set(index.map(i => i.name?.toLowerCase().trim()));
+    const modernNames = new Set(
+      index
+        .filter(i => i.system?.source?.rules === "2024" || i.flags?.ddbimporter?.is2024 === true || (!i.name?.includes("(Legacy)") && i.system?.source?.rules !== "2014"))
+        .map(i => i.name?.replace(/\s*\((?:Legacy|Homebrew)\)\s*/gi, "").toLowerCase().trim())
+    );
 
-    console.log(`[Jenne DDB Importer] Checking legacy/missing spells for compendium "${compSetting}"...`);
+    console.log(`[Jenne DDB Importer] Checking legacy/missing spells for compendium "${compSetting}" (${index.size} existing)...`);
     const resp = await fetch("modules/jenne-ddb-importer/data/ddb-legacy-spells.json");
     if (!resp.ok) return;
     const spells = await resp.json();
 
     const toCreate = [];
     for (const sp of spells) {
-      const name = sp.name?.toLowerCase().trim();
-      const cleanName = sp.name.replace(/\s*\(Legacy\)\s*/gi, "").trim();
-      if (cleanName && !existingNames.has(cleanName.toLowerCase())) {
-        const doc = foundry.utils.deepClone(sp);
-        doc.name = cleanName;
-        if (!doc.system) doc.system = { source: {} };
-        if (!doc.system.source) doc.system.source = {};
-        doc.system.source.rules = "2024";
-        foundry.utils.setProperty(doc, "flags.ddbimporter.isLegacy", false);
-        foundry.utils.setProperty(doc, "flags.ddbimporter.is2014", false);
-        foundry.utils.setProperty(doc, "flags.ddbimporter.is2024", true);
+      if (!sp.name) continue;
+      const cleanName = sp.name.replace(/\s*\((?:Legacy|Homebrew)\)\s*/gi, "").trim();
+      const cleanLower = cleanName.toLowerCase();
+
+      const doc = foundry.utils.deepClone(sp);
+      if (!doc.system) doc.system = { source: {} };
+      if (!doc.system.source) doc.system.source = {};
+      if (!doc.flags) doc.flags = {};
+      if (!doc.flags.ddbimporter) doc.flags.ddbimporter = {};
+
+      const isDuplicate = modernNames.has(cleanLower);
+      if (isDuplicate) {
+        // Duplicate: mark as (Legacy) with 2014 rules
+        const legacyName = `${cleanName} (Legacy)`;
+        if (existingExactNames.has(legacyName.toLowerCase())) continue;
+        doc.name = legacyName;
+        doc.system.source.rules = "2014";
+        doc.flags.ddbimporter.isLegacy = true;
+        doc.flags.ddbimporter.is2014 = true;
+        doc.flags.ddbimporter.is2024 = false;
+        existingExactNames.add(legacyName.toLowerCase());
         toCreate.push(doc);
-        existingNames.add(cleanName.toLowerCase());
+      } else {
+        // Unique: treat as 2024 with clean name (no (Legacy) tag)
+        if (existingExactNames.has(cleanLower)) continue;
+        doc.name = cleanName;
+        doc.system.source.rules = "2024";
+        doc.flags.ddbimporter.isLegacy = false;
+        doc.flags.ddbimporter.is2014 = false;
+        doc.flags.ddbimporter.is2024 = true;
+        existingExactNames.add(cleanLower);
+        toCreate.push(doc);
       }
     }
 
     if (toCreate.length > 0) {
-      console.log(`[Jenne DDB Importer] Adding ${toCreate.length} missing spells to ${compSetting}...`);
-      await pack.documentClass.createDocuments(toCreate, { pack: pack.metadata.id, keepId: true });
-      ui.notifications?.info?.(`D&D Beyond Importer: Added ${toCreate.length} missing legacy spells (including Friends, Thaumaturgy, Destructive Wave) to ${pack.metadata.label}.`);
+      console.log(`[Jenne DDB Importer] Auto-seeding ${toCreate.length} legacy/missing spells to ${compSetting}...`);
+      await pack.documentClass.createDocuments(toCreate, { pack: pack.metadata.id, keepId: false });
+      ui.notifications?.info?.(`D&D Beyond Importer: Auto-seeded ${toCreate.length} legacy spells into ${pack.metadata.label}.`);
+    } else {
+      console.log(`[Jenne DDB Importer] All legacy spells are already present in ${compSetting}.`);
     }
   } catch (err) {
-    console.warn("[Jenne DDB Importer] Spell sync check warning:", err);
+    console.warn("[Jenne DDB Importer] Spell sync error:", err);
   }
 }
 
-Hooks.once("ready", () => {
-  syncLegacySpellsToCompendium();
+if (typeof window !== "undefined") {
+  window.syncLegacySpellsToCompendium = syncLegacySpellsToCompendium;
+}
+
+Hooks.once("ready", async () => {
+  try {
+    // 1. Sanitize cobalt-cookie setting
+    for (const ns of ["ddb-importer", "jenne-ddb-importer"]) {
+      try {
+        const c = game.settings.get(ns, "cobalt-cookie");
+        if (typeof c === "string" && (c.startsWith("\"") || c.endsWith("\"") || c !== c.trim())) {
+          const cleaned = c.replace(/^"|"$/g, "").trim();
+          await game.settings.set(ns, "cobalt-cookie", cleaned);
+          console.log(`[Jenne DDB Importer] Sanitized ${ns}.cobalt-cookie`);
+        }
+      } catch (e) {}
+    }
+
+    // 2. Ensure source categories 26 ("5e Core Rules") and 1 ("5e Expanded Rules") are included when legacy is not excluded
+    try {
+      const excludeLegacy = game.settings.get("ddb-importer", "munching-policy-exclude-legacy");
+      if (!excludeLegacy) {
+        const inc = game.settings.get("ddb-importer", "munching-policy-muncher-included-source-categories") || [];
+        let mod = false;
+        for (const id of [26, 1, 8, 12]) {
+          if (!inc.includes(id)) {
+            inc.push(id);
+            mod = true;
+          }
+        }
+        if (mod) {
+          await game.settings.set("ddb-importer", "munching-policy-muncher-included-source-categories", inc);
+          console.log("[Jenne DDB Importer] Auto-included legacy source categories:", inc);
+        }
+      }
+    } catch (e) {}
+  } catch (err) {
+    console.warn("[Jenne DDB Importer] Startup configuration check warning:", err);
+  }
+
+  await syncLegacySpellsToCompendium();
 });
 
