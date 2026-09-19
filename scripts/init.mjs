@@ -339,3 +339,49 @@ const attachCobaltListeners = (html) => {
 Hooks.on("renderApplication", (app, html) => attachCobaltListeners(html));
 Hooks.on("renderFormApplication", (app, html) => attachCobaltListeners(html));
 Hooks.on("renderApplicationV2", (app, html) => attachCobaltListeners(html));
+
+// Universal Spell Compendium Synchronizer
+// Ensures that key legacy spells (such as Friends, Thaumaturgy, Destructive Wave, Befuddlement)
+// are seeded into the active DDB spell compendium if not already present.
+export async function syncLegacySpellsToCompendium() {
+  if (!game.user?.isGM) return;
+  try {
+    const compSetting = game.settings?.get("ddb-importer", "entity-spell-compendium") || "jenne-bag-of-holding.d-d-beyond-spells";
+    const pack = game.packs?.get(compSetting);
+    if (!pack || pack.locked) return;
+
+    const index = await pack.getIndex({ fields: ["name", "system.source.rules"] });
+    const existingNames = new Set(index.map(i => i.name?.toLowerCase().trim()));
+
+    // Check if key legacy spells are missing
+    const needsSync = !existingNames.has("friends") || !existingNames.has("destructive wave") || !existingNames.has("thaumaturgy");
+    if (!needsSync) return;
+
+    console.log(`[Jenne DDB Importer] Checking legacy/missing spells for compendium "${compSetting}"...`);
+    const resp = await fetch("modules/jenne-ddb-importer/data/ddb-legacy-spells.json");
+    if (!resp.ok) return;
+    const spells = await resp.json();
+
+    const toCreate = [];
+    for (const sp of spells) {
+      const name = sp.name?.toLowerCase().trim();
+      if (name && !existingNames.has(name)) {
+        toCreate.push(sp);
+        existingNames.add(name);
+      }
+    }
+
+    if (toCreate.length > 0) {
+      console.log(`[Jenne DDB Importer] Adding ${toCreate.length} missing spells to ${compSetting}...`);
+      await pack.documentClass.createDocuments(toCreate, { pack: pack.metadata.id, keepId: true });
+      ui.notifications?.info?.(`D&D Beyond Importer: Added ${toCreate.length} missing legacy spells (including Friends, Thaumaturgy, Destructive Wave) to ${pack.metadata.label}.`);
+    }
+  } catch (err) {
+    console.warn("[Jenne DDB Importer] Spell sync check warning:", err);
+  }
+}
+
+Hooks.once("ready", () => {
+  syncLegacySpellsToCompendium();
+});
+
