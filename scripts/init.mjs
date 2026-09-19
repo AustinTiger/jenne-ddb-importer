@@ -135,6 +135,61 @@ import { JenneDDBApi } from "./api.mjs";
 
 const COMPENDIUM_FOLDER_NAME = "Jenne D&D Beyond Importer";
 
+export async function ensureDDBCompendiumsUnlocked() {
+  if (!game.user?.isGM) return;
+
+  const compendiumSettingKeys = [
+    "entity-character-compendium",
+    "entity-spell-compendium",
+    "entity-item-compendium",
+    "entity-monster-compendium",
+    "entity-feat-compendium",
+    "entity-class-compendium",
+    "entity-subclass-compendium",
+    "entity-species-compendium",
+    "entity-background-compendium",
+    "entity-vehicle-compendium",
+    "entity-feature-compendium",
+    "entity-trait-compendium",
+    "entity-adventure-compendium",
+    "entity-journal-compendium",
+    "entity-table-compendium",
+    "entity-summons-compendium",
+    "entity-spell-2014-compendium",
+    "entity-item-2014-compendium",
+    "entity-monster-2014-compendium"
+  ];
+
+  const ddbPackKeys = new Set();
+  compendiumSettingKeys.forEach(key => {
+    for (const ns of ["jenne-ddb-importer", "ddb-importer"]) {
+      try {
+        const val = game.settings.get(ns, key);
+        if (val) ddbPackKeys.add(val);
+      } catch (e) {}
+    }
+  });
+
+  for (const pack of game.packs) {
+    const isDDB = ddbPackKeys.has(pack.collection) ||
+                  ddbPackKeys.has(pack.metadata.id) ||
+                  pack.collection.startsWith("jenne-bag-of-holding.d-d-beyond-") ||
+                  pack.metadata.packageName === "jenne-ddb-importer" ||
+                  pack.metadata.packageName === "ddb-importer" ||
+                  pack.metadata.label.startsWith("DDB ") ||
+                  pack.metadata.label.startsWith("Jenne DDB ");
+
+    if (isDDB && pack.locked) {
+      console.log(`[DDB Importer] Auto-unlocking compendium "${pack.metadata.label}" (${pack.collection}) for import.`);
+      try {
+        await pack.configure({ locked: false });
+      } catch (err) {
+        console.warn(`[DDB Importer] Could not unlock pack ${pack.collection}:`, err);
+      }
+    }
+  }
+}
+
 export async function organizeDDBCompendiums() {
   if (!game.user.isGM) return;
 
@@ -169,36 +224,47 @@ export async function organizeDDBCompendiums() {
       "entity-adventure-compendium",
       "entity-journal-compendium",
       "entity-table-compendium",
-            "entity-spell-2014-compendium",
+      "entity-summons-compendium",
+      "entity-spell-2014-compendium",
       "entity-item-2014-compendium",
       "entity-monster-2014-compendium"
     ];
 
     compendiumSettingKeys.forEach(key => {
-      try {
-        const val = game.settings.get("jenne-ddb-importer", key);
-        if (val) ddbPackKeys.add(val);
-      } catch (e) {}
+      for (const ns of ["jenne-ddb-importer", "ddb-importer"]) {
+        try {
+          const val = game.settings.get(ns, key);
+          if (val) ddbPackKeys.add(val);
+        } catch (e) {}
+      }
     });
 
     // 2. Iterate all packs in world
     for (const pack of game.packs) {
       const isDDB = ddbPackKeys.has(pack.collection) ||
                     ddbPackKeys.has(pack.metadata.id) ||
+                    pack.collection.startsWith("jenne-bag-of-holding.d-d-beyond-") ||
                     pack.metadata.packageName === "jenne-ddb-importer" ||
                     pack.metadata.packageName === "ddb-importer" ||
                     pack.metadata.label.startsWith("DDB ") ||
                     pack.metadata.label.startsWith("Jenne DDB ");
 
-      if (isDDB && pack.folder?.id !== folder.id) {
-        console.log(`[DDB Importer] Moving compendium "${pack.metadata.label}" into "${COMPENDIUM_FOLDER_NAME}" folder`);
-        try {
-          await pack.setFolder(folder.id);
-        } catch (err) {
+      if (isDDB) {
+        if (pack.locked) {
           try {
-            await pack.setFolder(folder);
-          } catch (e) {
-            console.warn(`[DDB Importer] Could not set folder for pack ${pack.metadata.label}:`, e);
+            await pack.configure({ locked: false });
+          } catch (_) {}
+        }
+        if (pack.folder?.id !== folder.id) {
+          console.log(`[DDB Importer] Moving compendium "${pack.metadata.label}" into "${COMPENDIUM_FOLDER_NAME}" folder`);
+          try {
+            await pack.configure({ folder: folder.id, locked: pack.config?.locked ?? false });
+          } catch (err) {
+            try {
+              await pack.setFolder(folder.id);
+            } catch (e) {
+              console.warn(`[DDB Importer] Could not set folder for pack ${pack.metadata.label}:`, e);
+            }
           }
         }
       }
@@ -208,11 +274,17 @@ export async function organizeDDBCompendiums() {
   }
 }
 
+Hooks.once("setup", async () => {
+  await ensureDDBCompendiumsUnlocked();
+});
+
 Hooks.once("ready", async () => {
+  await ensureDDBCompendiumsUnlocked();
   await organizeDDBCompendiums();
 });
 
 Hooks.on("ddb-importer.compendiumCreationComplete", async () => {
+  await ensureDDBCompendiumsUnlocked();
   await organizeDDBCompendiums();
 });
 
@@ -365,9 +437,18 @@ export async function syncLegacySpellsToCompendium() {
     const toCreate = [];
     for (const sp of spells) {
       const name = sp.name?.toLowerCase().trim();
-      if (name && !existingNames.has(name)) {
-        toCreate.push(sp);
-        existingNames.add(name);
+      const cleanName = sp.name.replace(/\s*\(Legacy\)\s*/gi, "").trim();
+      if (cleanName && !existingNames.has(cleanName.toLowerCase())) {
+        const doc = foundry.utils.deepClone(sp);
+        doc.name = cleanName;
+        if (!doc.system) doc.system = { source: {} };
+        if (!doc.system.source) doc.system.source = {};
+        doc.system.source.rules = "2024";
+        foundry.utils.setProperty(doc, "flags.ddbimporter.isLegacy", false);
+        foundry.utils.setProperty(doc, "flags.ddbimporter.is2014", false);
+        foundry.utils.setProperty(doc, "flags.ddbimporter.is2024", true);
+        toCreate.push(doc);
+        existingNames.add(cleanName.toLowerCase());
       }
     }
 
