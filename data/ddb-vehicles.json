@@ -1,0 +1,4004 @@
+[
+  {
+    "id": "7",
+    "name": "Battle Balloon",
+    "url": "/vehicles/battle-balloon",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 18
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 17
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 20
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 2000,
+    "creatureCapacity": [
+      {
+        "type": "crew",
+        "capacity": 20
+      },
+      {
+        "type": "passengers",
+        "capacity": 10
+      }
+    ],
+    "travelPace": 5940,
+    "length": 80,
+    "width": 20,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": true
+      },
+      {
+        "key": "DT",
+        "value": "air"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 44,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 200,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Helm",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 18,
+          "armorClassDescription": "18",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Balloon",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 75,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Propeller",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "air",
+              "modes": [
+                {
+                  "value": 80,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Green Flame Arbalester",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 75,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Weapon: Harpoon Gun (3)",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjbb",
+    "name": "Bombard",
+    "url": "/vehicles/bombard",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "2 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Giant Cannon",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 250,
+          "armorClass": 19,
+          "armorClassDescription": "19",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjdf",
+    "name": "Damselfly Ship",
+    "url": "/vehicles/damselfly-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Ballista",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "11",
+    "name": "Demon Grinder",
+    "url": "/vehicles/demon-grinder",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 18
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 18
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 2000,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 12000,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "weight"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "land"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34,
+      26
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      5,
+      9,
+      10,
+      11,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 48,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "9",
+    "name": "Devil's Ride",
+    "url": "/vehicles/devils-ride",
+    "sizeId": 5,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 14
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 18
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 12
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 100,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 500,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "weight"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "land"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34,
+      26
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      5,
+      9,
+      10,
+      11,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 48,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjff",
+    "name": "Flying Fish Ship",
+    "url": "/vehicles/flying-fish-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Ballista",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "1",
+    "name": "Galley",
+    "url": "/vehicles/galley",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 24
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 4
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 20
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 300000,
+    "creatureCapacity": [
+      {
+        "type": "crew",
+        "capacity": 80
+      },
+      {
+        "type": "passengers",
+        "capacity": 40
+      }
+    ],
+    "travelPace": 2640,
+    "length": 130,
+    "width": 20,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": true
+      },
+      {
+        "key": "DT",
+        "value": "water"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 43,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 500,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 20,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Helm",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 16,
+          "armorClassDescription": "16",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Oars",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 30,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sails",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 35,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Weapon: Ballista (4)",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Weapon: Mangonel (2)",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Naval Ram",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 20,
+          "armorClassDescription": "20",
+          "damageThreshold": 10,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjhh",
+    "name": "Hammerhead Ship",
+    "url": "/vehicles/hammerhead-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Ballista",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Blunt Ram",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "2 Mangonel (5 crew each)",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "2",
+    "name": "Keelboat",
+    "url": "/vehicles/keelboat",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 16
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 7
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 13
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 1000,
+    "creatureCapacity": [
+      {
+        "type": "crew",
+        "capacity": 3
+      },
+      {
+        "type": "passengers",
+        "capacity": 4
+      }
+    ],
+    "travelPace": 1980,
+    "length": 60,
+    "width": 20,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": true
+      },
+      {
+        "key": "DT",
+        "value": "water"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 43,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 10,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Helm",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Oars",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 20,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sails",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 25,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Ballista",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjlam",
+    "name": "Lamprey Ship",
+    "url": "/vehicles/lamprey-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "4 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Grappling Jaws",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjliv",
+    "name": "Living Ship",
+    "url": "/vehicles/living-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Ballista",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "3",
+    "name": "Longship",
+    "url": "/vehicles/longship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 20
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 6
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 17
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 20000,
+    "creatureCapacity": [
+      {
+        "type": "crew",
+        "capacity": 40
+      },
+      {
+        "type": "passengers",
+        "capacity": 100
+      }
+    ],
+    "travelPace": 3300,
+    "length": 70,
+    "width": 20,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": true
+      },
+      {
+        "key": "DT",
+        "value": "water"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 43,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Helm",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 16,
+          "armorClassDescription": "16",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Oars",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 20,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sails",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 45,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "ebac",
+    "name": "Lyrandar Air Cruiser",
+    "url": "/vehicles/lyrandar-air-cruiser",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "elemental-airship"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 49,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "ebls",
+    "name": "Lyrandar Skyskiff",
+    "url": "/vehicles/lyrandar-skyriff",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "elemental-airship"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 49,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "8",
+    "name": "Mechanical Beholder",
+    "url": "/vehicles/mechanical-beholder",
+    "sizeId": 6,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 18
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 12
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 18
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [
+      {
+        "type": "crew",
+        "capacity": 1
+      },
+      {
+        "type": "passengers",
+        "capacity": 5
+      }
+    ],
+    "travelPace": 1980,
+    "length": 15,
+    "width": 15,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": true
+      },
+      {
+        "key": "DT",
+        "value": "land"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 44,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 200,
+          "armorClass": 18,
+          "armorClassDescription": "18",
+          "damageThreshold": 10,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Helm",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 25,
+          "armorClass": 16,
+          "armorClassDescription": "16",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Magical Propulsion Unit",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 16,
+          "armorClassDescription": "16",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "magical",
+              "modes": [
+                {
+                  "value": 0,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Weapon: Eye Ray Tentacle (6)",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 14,
+          "armorClassDescription": "14",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjna",
+    "name": "Nautiloid",
+    "url": "/vehicles/nautiloid",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "4 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Tentacles",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjns",
+    "name": "Nightspider",
+    "url": "/vehicles/nightspider",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "4 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "4",
+    "name": "Rowboat",
+    "url": "/vehicles/rowboat",
+    "sizeId": 5,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 11
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 8
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 11
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 400,
+    "creatureCapacity": [
+      {
+        "type": "crew",
+        "capacity": 2
+      },
+      {
+        "type": "passengers",
+        "capacity": 2
+      }
+    ],
+    "travelPace": 1980,
+    "length": 10,
+    "width": 5,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": true
+      },
+      {
+        "key": "DT",
+        "value": "water"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 43,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 11,
+          "armorClassDescription": "11",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Oars",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 25,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 15,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "5",
+    "name": "Sailing Ship",
+    "url": "/vehicles/sailing-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 20
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 7
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 17
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 200000,
+    "creatureCapacity": [
+      {
+        "type": "crew",
+        "capacity": 30
+      },
+      {
+        "type": "passengers",
+        "capacity": 20
+      }
+    ],
+    "travelPace": 3300,
+    "length": 100,
+    "width": 20,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": true
+      },
+      {
+        "key": "DT",
+        "value": "water"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 43,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Helm",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 18,
+          "armorClassDescription": "18",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Sails",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 45,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Ballista",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "12",
+    "name": "Scavenger",
+    "url": "/vehicles/scavenger",
+    "sizeId": 6,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 20
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 12
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 20
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 4000,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 9000,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "weight"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "land"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34,
+      26
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      5,
+      9,
+      10,
+      11,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 48,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjsc",
+    "name": "Scorpion Ship",
+    "url": "/vehicles/scorpion-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Ballista",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "2 Claw (1 crew each)",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjshr",
+    "name": "Shrike Ship",
+    "url": "/vehicles/shrike-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "3 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Piercing Ram",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjsg",
+    "name": "Space Galleon",
+    "url": "/vehicles/space-galleon",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "2 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjsq",
+    "name": "Squid Ship",
+    "url": "/vehicles/squid-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "2 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Piercing Ram",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjsm",
+    "name": "Star Moth",
+    "url": "/vehicles/star-moth",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "2 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "ebsa",
+    "name": "Strider Airship",
+    "url": "/vehicles/strider-airship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "elemental-airship"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 49,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "10",
+    "name": "Tormentor",
+    "url": "/vehicles/tormentor",
+    "sizeId": 6,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 16
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 14
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 14
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 500,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 3000,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "weight"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "land"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34,
+      26
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      5,
+      9,
+      10,
+      11,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 48,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 300,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 15,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjts",
+    "name": "Turtle Ship",
+    "url": "/vehicles/turtle-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "3 Ballista (3 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Mangonel",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjty",
+    "name": "Tyrant Ship",
+    "url": "/vehicles/tyrant-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "3 Eyestalk Cannon (1 crew each)",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "6",
+    "name": "Warship",
+    "url": "/vehicles/warship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 20
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 4
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 20
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 400000,
+    "creatureCapacity": [
+      {
+        "type": "crew",
+        "capacity": 40
+      },
+      {
+        "type": "passengers",
+        "capacity": 60
+      }
+    ],
+    "travelPace": 2640,
+    "length": 100,
+    "width": 20,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": true
+      },
+      {
+        "key": "DT",
+        "value": "water"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": true
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [
+      31,
+      34
+    ],
+    "conditionImmunities": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      7,
+      9,
+      10,
+      11,
+      12,
+      14,
+      15
+    ],
+    "sources": [
+      {
+        "sourceId": 43,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Hull",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 500,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": 20,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Helm",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 18,
+          "armorClassDescription": "18",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Oars",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 20,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Sails",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 12,
+          "armorClassDescription": "12",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": [
+            {
+              "type": "water",
+              "modes": [
+                {
+                  "value": 35,
+                  "movementId": 1
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        "name": "Weapon: Ballista (2)",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Weapon: Mangonel (2)",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      },
+      {
+        "name": "Naval Ram",
+        "isPrimaryComponent": false,
+        "definition": {
+          "hitPoints": 100,
+          "armorClass": 20,
+          "armorClassDescription": "20",
+          "damageThreshold": 10,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  },
+  {
+    "id": "sjws",
+    "name": "Wasp Ship",
+    "url": "/vehicles/wasp-ship",
+    "sizeId": 7,
+    "stats": [
+      {
+        "id": 1,
+        "name": "str",
+        "value": 10
+      },
+      {
+        "id": 2,
+        "name": "dex",
+        "value": 10
+      },
+      {
+        "id": 3,
+        "name": "con",
+        "value": 10
+      },
+      {
+        "id": 4,
+        "name": "int",
+        "value": 0
+      },
+      {
+        "id": 5,
+        "name": "wis",
+        "value": 0
+      },
+      {
+        "id": 6,
+        "name": "cha",
+        "value": 0
+      }
+    ],
+    "cargoCapacity": 0,
+    "creatureCapacity": [],
+    "travelPace": 0,
+    "length": 0,
+    "width": 0,
+    "weight": 0,
+    "configurations": [
+      {
+        "key": "ST",
+        "value": "dimension"
+      },
+      {
+        "key": "ETP",
+        "value": false
+      },
+      {
+        "key": "DT",
+        "value": "spelljammer"
+      },
+      {
+        "key": "ECCR",
+        "value": true
+      },
+      {
+        "key": "ECMT",
+        "value": false
+      },
+      {
+        "key": "ECDT",
+        "value": false
+      },
+      {
+        "key": "PCMT",
+        "value": "vehicle"
+      }
+    ],
+    "damageImmunities": [],
+    "conditionImmunities": [],
+    "sources": [
+      {
+        "sourceId": 90,
+        "sourceType": 1
+      }
+    ],
+    "components": [
+      {
+        "name": "Ballista",
+        "isPrimaryComponent": true,
+        "definition": {
+          "hitPoints": 50,
+          "armorClass": 15,
+          "armorClassDescription": "15",
+          "damageThreshold": null,
+          "mishapThreshold": null,
+          "speeds": []
+        }
+      }
+    ],
+    "avatarUrl": "",
+    "largeAvatarUrl": ""
+  }
+]

@@ -218,11 +218,11 @@ export async function ensureDDBCompendiumsUnlocked() {
                   pack.metadata.label.startsWith("Jenne DDB ");
 
     if (isDDB && pack.locked) {
-      console.log(`[DDB Importer] Auto-unlocking compendium "${pack.metadata.label}" (${pack.collection}) for import.`);
+      console.log(`[Jenne DDB Importer] Auto-unlocking compendium "${pack.metadata.label}" (${pack.collection}) for import.`);
       try {
         await pack.configure({ locked: false });
       } catch (err) {
-        console.warn(`[DDB Importer] Could not unlock pack ${pack.collection}:`, err);
+        console.warn(`[Jenne DDB Importer] Could not unlock pack ${pack.collection}:`, err);
       }
     }
   }
@@ -240,7 +240,7 @@ export async function organizeDDBCompendiums() {
         color: "#98020a",
         sorting: "a"
       });
-      console.log(`[DDB Importer] Created compendium folder: "${COMPENDIUM_FOLDER_NAME}"`);
+      console.log(`[Jenne DDB Importer] Created compendium folder: "${COMPENDIUM_FOLDER_NAME}"`);
     }
 
     const ddbPackKeys = new Set();
@@ -294,21 +294,21 @@ export async function organizeDDBCompendiums() {
           } catch (_) {}
         }
         if (pack.folder?.id !== folder.id) {
-          console.log(`[DDB Importer] Moving compendium "${pack.metadata.label}" into "${COMPENDIUM_FOLDER_NAME}" folder`);
+          console.log(`[Jenne DDB Importer] Moving compendium "${pack.metadata.label}" into "${COMPENDIUM_FOLDER_NAME}" folder`);
           try {
             await pack.configure({ folder: folder.id, locked: pack.config?.locked ?? false });
           } catch (err) {
             try {
               await pack.setFolder(folder.id);
             } catch (e) {
-              console.warn(`[DDB Importer] Could not set folder for pack ${pack.metadata.label}:`, e);
+              console.warn(`[Jenne DDB Importer] Could not set folder for pack ${pack.metadata.label}:`, e);
             }
           }
         }
       }
     }
   } catch (err) {
-    console.error("[DDB Importer] Error organizing compendiums into folder:", err);
+    console.error("[Jenne DDB Importer] Error organizing compendiums into folder:", err);
   }
 }
 

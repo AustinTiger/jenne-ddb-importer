@@ -86,8 +86,10 @@
           <td>
             {{#if this.inParty}}
             <span class="status-in-party">In party</span>
-            {{else if this.alreadyImported}}
+            {{else if this.inWorld}}
             <span class="status-imported">In world</span>
+            {{else if this.inCompendium}}
+            <span class="status-imported" style="background: #2563eb !important; color: #fff !important; padding: 2px 6px; border-radius: 4px; font-size: 11px;">In compendium</span>
             {{else}}
             <span class="status-missing">Not imported</span>
             {{/if}}
