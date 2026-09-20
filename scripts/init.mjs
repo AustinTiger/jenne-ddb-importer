@@ -1,3 +1,27 @@
+// Universal Safe Settings Interceptor
+// Prevents Foundry VTT fatal crash:
+// "Error: 'ddb-importer.setting-name' is not a registered game setting"
+// which occurs when code queries legacy or unregistered settings.
+export function patchSafeClientSettings() {
+  const CS = globalThis.ClientSettings;
+  if (!CS || CS.prototype._safeGetPatched) return;
+  CS.prototype._safeGetPatched = true;
+  const origGet = CS.prototype.get;
+  CS.prototype.get = function(namespace, key, options) {
+    try {
+      return origGet.call(this, namespace, key, options);
+    } catch (err) {
+      if (err.message && err.message.includes("is not a registered game setting")) {
+        if (namespace === "ddb-importer" || namespace === "jenne-ddb-importer") {
+          return false;
+        }
+      }
+      throw err;
+    }
+  };
+}
+patchSafeClientSettings();
+
 // Universal Compendium Index Sanitizer
 // Prevents Foundry VTT server-backend fatal crash:
 // "TypeError: Cannot create property 'rules' on number '1'"
@@ -115,6 +139,20 @@ export function patchItemPropertiesMigration() {
 
   // 5. Hook "init" for late-registered classes
   Hooks.once("init", () => {
+    patchSafeClientSettings();
+    try {
+      if (game.settings && !game.settings.settings.has("ddb-importer.munching-policy-exclude-legacy")) {
+        game.settings.register("ddb-importer", "munching-policy-exclude-legacy", {
+          name: "Exclude Legacy",
+          hint: "Exclude legacy content",
+          scope: "world",
+          config: false,
+          type: Boolean,
+          default: false,
+        });
+      }
+    } catch (e) {}
+
     const lateItemCls = globalThis.dnd5e?.documents?.Item5e ?? CONFIG.Item?.documentClass;
     if (lateItemCls) patchItemClass(lateItemCls);
 
