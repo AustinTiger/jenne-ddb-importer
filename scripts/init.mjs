@@ -3,7 +3,7 @@
 // "Error: 'ddb-importer.setting-name' is not a registered game setting"
 // which occurs when code queries legacy or unregistered settings.
 export function patchSafeClientSettings() {
-  const CS = globalThis.ClientSettings;
+  const CS = foundry?.helpers?.ClientSettings ?? globalThis.ClientSettings;
   if (!CS || CS.prototype._safeGetPatched) return;
   CS.prototype._safeGetPatched = true;
   const origGet = CS.prototype.get;
@@ -28,7 +28,7 @@ patchSafeClientSettings();
 // which occurs when indexFields contains both an ancestor path (e.g. "system.source")
 // and a child path (e.g. "system.source.rules"), causing server-side setProperty() to fail.
 export function patchCompendiumIndexSanitizer() {
-  const CompendiumCls = globalThis.CompendiumCollection ?? foundry?.documents?.collections?.CompendiumCollection;
+  const CompendiumCls = foundry?.documents?.collections?.CompendiumCollection ?? globalThis.CompendiumCollection;
   if (!CompendiumCls || CompendiumCls.prototype._sanitizedGetIndex) return;
 
   const origGetIndex = CompendiumCls.prototype.getIndex;
@@ -489,6 +489,7 @@ export async function syncLegacySpellsToCompendium() {
       const cleanLower = cleanName.toLowerCase();
 
       const doc = foundry.utils.deepClone(sp);
+      doc.effects = Array.isArray(doc.effects) ? doc.effects.filter(e => e && typeof e === "object") : [];
       if (!doc.system) doc.system = { source: {} };
       if (!doc.system.source) doc.system.source = {};
       if (!doc.flags) doc.flags = {};
