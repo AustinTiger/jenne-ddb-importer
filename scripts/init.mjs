@@ -467,6 +467,7 @@ export async function syncLegacySpellsToCompendium() {
         doc.flags.ddbimporter.is2014 = true;
         doc.flags.ddbimporter.is2024 = false;
         existingExactNames.add(legacyName.toLowerCase());
+        delete doc._id;
         toCreate.push(doc);
       } else {
         // Unique: treat as 2024 with clean name (no (Legacy) tag)
@@ -477,13 +478,17 @@ export async function syncLegacySpellsToCompendium() {
         doc.flags.ddbimporter.is2014 = false;
         doc.flags.ddbimporter.is2024 = true;
         existingExactNames.add(cleanLower);
+        delete doc._id;
         toCreate.push(doc);
       }
     }
 
     if (toCreate.length > 0) {
       console.log(`[Jenne DDB Importer] Auto-seeding ${toCreate.length} legacy/missing spells to ${compSetting}...`);
-      await pack.documentClass.createDocuments(toCreate, { pack: pack.metadata.id, keepId: false });
+      for (let i = 0; i < toCreate.length; i += 100) {
+        const batch = toCreate.slice(i, i + 100);
+        await pack.documentClass.createDocuments(batch, { pack: pack.metadata.id, keepId: false });
+      }
       ui.notifications?.info?.(`D&D Beyond Importer: Auto-seeded ${toCreate.length} legacy spells into ${pack.metadata.label}.`);
     } else {
       console.log(`[Jenne DDB Importer] All legacy spells are already present in ${compSetting}.`);
@@ -511,22 +516,19 @@ Hooks.once("ready", async () => {
       } catch (e) {}
     }
 
-    // 2. Ensure source categories 26 ("5e Core Rules") and 1 ("5e Expanded Rules") are included when legacy is not excluded
+    // 2. Ensure source categories 26 ("5e Core Rules") and 1 ("5e Expanded Rules") are included in muncher categories
     try {
-      const excludeLegacy = game.settings.get("ddb-importer", "munching-policy-exclude-legacy");
-      if (!excludeLegacy) {
-        const inc = game.settings.get("ddb-importer", "munching-policy-muncher-included-source-categories") || [];
-        let mod = false;
-        for (const id of [26, 1, 8, 12]) {
-          if (!inc.includes(id)) {
-            inc.push(id);
-            mod = true;
-          }
+      const inc = game.settings.get("ddb-importer", "munching-policy-muncher-included-source-categories") || [];
+      let mod = false;
+      for (const id of [26, 1, 8, 12]) {
+        if (!inc.includes(id)) {
+          inc.push(id);
+          mod = true;
         }
-        if (mod) {
-          await game.settings.set("ddb-importer", "munching-policy-muncher-included-source-categories", inc);
-          console.log("[Jenne DDB Importer] Auto-included legacy source categories:", inc);
-        }
+      }
+      if (mod) {
+        await game.settings.set("ddb-importer", "munching-policy-muncher-included-source-categories", inc);
+        console.log("[Jenne DDB Importer] Auto-included legacy source categories:", inc);
       }
     } catch (e) {}
   } catch (err) {
