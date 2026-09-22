@@ -26,22 +26,22 @@
     <legend><i class="fas fa-images"></i> Image Storage Options</legend>
     
     <div class="jenne-options-grid-2col">
-      <div class="form-group jenne-compact-option">
-        <label data-tooltip="Converts downloaded images to WebP format for reduced disk usage and faster browser rendering.">
-          <strong>Convert images to WebP?</strong>
+      <div class="form-group jenne-compact-option" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; justify-content: space-between !important; padding: 8px 14px !important; margin: 0 !important; min-height: 44px !important;">
+        <label class="jenne-compact-label" style="display: inline-flex !important; align-items: center !important; gap: 6px !important; white-space: nowrap !important; flex: 1 1 auto !important; margin: 0 !important; cursor: help !important;" data-tooltip="Converts downloaded images to WebP format for reduced disk usage and faster browser rendering.">
+          <strong style="white-space: nowrap !important;">Convert images to WebP?</strong>
           <i class="fas fa-info-circle jenne-hint-icon"></i>
         </label>
-        <div class="form-fields">
+        <div class="form-fields jenne-compact-fields" style="display: flex !important; align-items: center !important; justify-content: flex-end !important; flex: 0 0 auto !important; margin: 0 !important;">
           <dnd5e-checkbox {{#if use-webp}}checked{{/if}} class="setup-config" type="checkbox" name="use-webp" data-section="useWebP"></dnd5e-checkbox>
         </div>
       </div>
 
-      <div class="form-group jenne-compact-option">
-        <label data-tooltip="Organizes downloaded images into dedicated sub-folders categorized by creature type, equipment slot, etc.">
-          <strong>Use deep file paths?</strong>
+      <div class="form-group jenne-compact-option" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; justify-content: space-between !important; padding: 8px 14px !important; margin: 0 !important; min-height: 44px !important;">
+        <label class="jenne-compact-label" style="display: inline-flex !important; align-items: center !important; gap: 6px !important; white-space: nowrap !important; flex: 1 1 auto !important; margin: 0 !important; cursor: help !important;" data-tooltip="Organizes downloaded images into dedicated sub-folders categorized by creature type, equipment slot, etc.">
+          <strong style="white-space: nowrap !important;">Use deep file paths?</strong>
           <i class="fas fa-info-circle jenne-hint-icon"></i>
         </label>
-        <div class="form-fields">
+        <div class="form-fields jenne-compact-fields" style="display: flex !important; align-items: center !important; justify-content: flex-end !important; flex: 0 0 auto !important; margin: 0 !important;">
           <dnd5e-checkbox {{#if use-deep-file-paths}}checked{{/if}} class="setup-config" type="checkbox" name="use-deep-file-paths" data-section="useDeepFilePaths"></dnd5e-checkbox>
         </div>
       </div>
