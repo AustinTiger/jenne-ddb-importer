@@ -478,7 +478,8 @@ export async function syncLegacySpellsToCompendium() {
     );
 
     console.log(`[Jenne DDB Importer] Checking legacy/missing spells for compendium "${compSetting}" (${index.size} existing)...`);
-    const resp = await fetch("modules/jenne-ddb-importer/data/ddb-legacy-spells.json");
+    let resp = await fetch("/modules/jenne-ddb-importer/data/ddb-legacy-spells.json");
+    if (!resp.ok) resp = await fetch("modules/jenne-ddb-importer/data/ddb-legacy-spells.json");
     if (!resp.ok) return;
     const spells = await resp.json();
 
