@@ -313,13 +313,112 @@ static async parseMonsters(e,t){try{i.logger.info("Importing...nsters!"),this._d
 
 class ${e} not found in class list, skipping`,{classList:t});continue}const l=r.sources.every(e=>i.DDBSources.is2014Source(e))?"2014":"2024";i.logger.debug("Importing...mebrew subclasses for class",{classId:e,klass:r,homebrewClasses:Array.from(this.homebrewClasses),classList:t,version:l}),o.homebrew=!0,o.onlyHomebrew=a,o.classId=r.id,this.autoRotateMessage("class",r.name.toLowerCase()),i.logger.info(`Importing...ass ${r.name} (${r.id}) Homebrew subclasses`);const c=this.subClassMap[r.id].filter(e=>e.isHomebrew).filter(e=>!(n&&s.has(parseInt(String(e.id)))));if(n&&0===c.length)i.logger.info(`Skipping homebrew subclasses for class ${r.name} (${r.id}): all already exist`);else for(let t=0;t<c.length;t+=3){const a=c.slice(t,t+3).map(e=>e.id);o.filterIds=a,i.logger.debug("Importing...mebrew subclasses for class with filter",{classId:e,klass:r,version:l,filterIds:a,start:t,end:t+a.length,subClasses:c}),this.notifierV2({section:"name",message:`Importing...r ${r.name} from ${t}-${t+a.length} homebrew subclasses...`});try{await this.#d(o),i.logger.debug(`Munch Complete for class ${r.name} for homebrew`,{options:foundry.utils.deepClone(o)})}catch(e){i.logger.error(e),e instanceof Error&&i.logger.error(e.stack),this.processErrors.push({className:r.name,classId:r.id,filterIds:a,category:"Homebrew",error:i.utils.errorMessage(e),message:`Class ${r.name} (${r.id} from ${t}-${t+a.length}) for homebrew subclasses`})}this.#c(`${r.name} (Homebrew)`)}}}async#m({sourceIdArrays:e,baseOptions:t,classList:a,subclassSelections:n,dontGrabExisting:s=!1,existingSubclassIds:r=new Set}){for(const o of e){const e=CONFIG.DDB.sourceCategories.find(e=>e.id===o.categoryId),l=foundry.utils.deepClone(t);for(const t of a){this.autoRotateMessage("class",t.name.toLowerCase()),i.logger.info(`Importing...ass ${t.name} (${t.id}) in ${e?.name??o.categoryId}`),l.classId=t.id;const a=n??{},c=(a[t.id]??a[String(t.id)]??[]).map(e=>parseInt(String(e)));if(l.filterIds=c,s){const a=(this.subClassMap[t.id]??[]).map(e=>parseInt(String(e.id))),n=(c.length>0?c:a).filter(e=>!r.has(e));if(0===n.length){i.logger.info(`Skipping class ${t.name} (${t.id}): all in-scope subclasses already exist`),this.#c(`${t.name} (${e?.name??o.categoryId}, skipped)`);continue}l.filterIds=n}const d=t.sources.every(e=>i.DDBSources.is2014Source(e))?"2014":"2024",u=this.subClassMap[t.id],m=new Set(u.map(e=>e.sources.map(e=>e.sourceId)).flat()),g=foundry.utils.deepClone(o.sourceIds).filter(e=>m.has(e));if(0!==g.length){l.sources=g,this.notifierV2({section:"name",message:`Importing...r ${t.name} from ${g.length} sources in the ${e?.name??o.categoryId} category...`});try{await this.#d(l),i.logger.debug(`Munch Complete for class ${t.name} in ${e?.name??o.categoryId}`,{sourceIdArray:o,options:foundry.utils.deepClone(l)})}catch(a){i.logger.error(a),a instanceof Error&&i.logger.error(a.stack),this.processErrors.push({className:t.name,classId:t.id,category:e?.name??o.categoryId,error:i.utils.errorMessage(a),message:`Class ${t.name} (${t.id}) in ${e?.name??o.categoryId}`})}this.#c(`${t.name} (${e?.name??o.categoryId})`)}else i.logger.info(`No subclasses in selected sources for class ${t.name} (${t.id} - ${d}) in ${e?.name??o.categoryId}, skipping`,{sources:g,subClassSources:m,allowHomebrew:l.homebrew,onlyHomebrew:l.onlyHomebrew,homebrewClasses:this.homebrewClasses,subClasses:u,subClassMap:this.subClassMap,version:d,klass:t,originalSources:o.sourceIds}),this.#c(`${t.name} (${e?.name??o.categoryId}, skipped)`)}}}async _parseClassesWithMule(){const e=this.characterId;if(!e)return void ui.notifications.error("You must enter a valid D&D Beyond character URL to import classes.");this.autoRotateMessage("class");const t=i.utils.getSetting("munching-policy-character-fetch-homebrew"),a=i.utils.getSetting("munching-policy-character-only-homebrew"),n=i.DDBSources.getChosenCategoriesAndBooks(),s=i.DDBSources.getChosenSourceIdSet(),r={characterId:e,homebrew:!1,onlyHomebrew:!1,type:"class",ddbMuncher:this,optionalClassFeatures:i.utils.getSetting("munching-policy-character-optional-class-features"),optionSourceIds:Array.from(s)},o=i.utils.getSetting("munching-policy-character-classes").map(e=>parseInt(String(e)));if(0===o.length)return this.notifier("Select at least one class to munch.",{nameField:!0}),void this.stopAutoRotateMessage();const l=i.utils.getSetting("munching-policy-character-subclasses")??{},c=i.utils.getSetting("munching-policy-character-dont-grab-existing"),d=DDBMuncher.getSelectedRulesVersion(),u=c?await A.A.getExistingSubclassIds(d):new Set,m=(await A.A.getList("class",Array.from(s))).filter(e=>o.includes(e.id));i.logger.info(`Found ${m.length} classes to munch`,{classList:m,allSourceIds:s,allowedClassIds:o,baseOptions:r}),this.processErrors=[],this.homebrewClasses=new Set,this.#r(DDBMuncher.MULE_OVERALL_LABELS.class,a?0:n.length*m.length);try{const s=await A.A.getSlimCharacters([e]),o=s&&s.length>0?s[0]?.campaign?.id:null;await Promise.all(m.map(async e=>{const t=e.sources.every(e=>i.DDBSources.is2014Source(e))?"2014":"2024";this.subClassMap[e.id]||(this.subClassMap[e.id]=await A.A.getSubclassesCached({className:e.name,classId:e.id,rulesVersion:t,includeHomebrew:!0,campaignId:o})),this.subClassMap[e.id].some(e=>e.isHomebrew)&&this.homebrewClasses.add(e.id)})),a||await this.#m({sourceIdArrays:n,baseOptions:r,classList:m,subclassSelections:l,dontGrabExisting:c,existingSubclassIds:u}),t&&this.homebrewClasses.size>0&&await this.#u({baseOptions:r,classList:m,onlyHomebrew:a,dontGrabExisting:c,existingSubclassIds:u})}catch(e){i.logger.error(e),e instanceof Error&&i.logger.error(e.stack),this.notifier(`Error during munching: ${i.utils.errorMessage(e)}`,{nameField:!0})}finally{this.stopAutoRotateMessage(),this.processErrors.length>0&&(this.notifier(`Errors during munching: ${this.processErrors.length}`,{nameField:!0}),this.notifier(this.processErrors.map(e=>e.message).join(" & "),{message:!0}),i.logger.error("Process Errors:",{processErrors:this.processErrors,this:this}))}}async _parseWithMule(e){this.autoRotateMessage(e);const t=i.utils.getSetting("munching-policy-character-fetch-homebrew"),a=i.utils.getSetting("munching-policy-character-only-homebrew"),n={characterId:this.characterId,homebrew:!1,onlyHomebrew:!1,type:e,ddbMuncher:this},s=i.DDBSources.getChosenCategoriesAndBooks(),r=i.utils.getSetting("munching-policy-character-dont-grab-existing"),o="species"===e?i.utils.getSetting("munching-policy-character-species").map(e=>parseInt(String(e))):[],l="species"===e&&(o.length>0||r);let c=[],d=new Set;if(l){try{c=await A.A.getList("species",null)}catch(e){i.logger.warn("Failed to fetch species list for filtering",e)}r&&(d=await A.A.getExistingSpeciesIds(null))}let u="feat"===e||"background"===e,m=[],g=new Set;const p=DDBMuncher.getSelectedRulesVersion();if(u){try{m=await A.A.getList(e,null)}catch(t){i.logger.warn(`Failed to fetch ${e} list for filtering, munching everything instead`,t),u=!1}u&&r&&(g="feat"===e?await A.A.getExistingFeatIds(p):await A.A.getExistingBackgroundIds(p))}const isDefinition2014=e=>e.sources.length>0&&e.sources.every(e=>i.DDBSources.is2014Source(e)),matchesRulesVersion=e=>"2014"===p?isDefinition2014(e):!isDefinition2014(e),h=[],f=a?0:s.reduce((e,t)=>e+t.sourceIds.length,0),y=t||a;this.#r(DDBMuncher.MULE_OVERALL_LABELS[e],f+(y?1:0));try{for(const t of s){if(a)continue;const s=CONFIG.DDB.sourceCategories.find(e=>e.id===t.categoryId),p=foundry.utils.deepClone(n),f=t.sourceIds.length;for(const[a,n]of t.sourceIds.entries()){p.sources=[n];const y=CONFIG.DDB.sources.find(e=>e.id===n)?.description??`source ${n}`;if(l){let e;if(e=o.length>0?0===c.length?o:o.filter(e=>{const t=c.find(t=>t.entityRaceId===e);return!t||t.sources.some(e=>e.sourceId===n)}):c.filter(e=>e.sources.some(e=>e.sourceId===n)).map(e=>e.entityRaceId),r&&(e=e.filter(e=>!d.has(e))),0===e.length){this.#c(`${y} (skipped)`);continue}p.filterIds=e}if(u){let e=m.filter(e=>matchesRulesVersion(e)).filter(e=>e.sources.some(e=>e.sourceId===n)).map(e=>e.id);if(r&&(e=e.filter(e=>!g.has(e))),0===e.length){this.#c(`${y} (skipped)`);continue}p.filterIds=e}const v=new A.A(p);this.notifierV2({section:"name",message:`Importing...om ${y} (${a+1}/${f}) in the ${s?.name??t.categoryId} category...`});try{await v.process(),i.logger.debug(`Partial Munch Complete for ${e} in ${s?.name??t.categoryId}`,{muleHandler:v,sourceId:n,options:foundry.utils.deepClone(p)})}catch(a){i.logger.error(a),a instanceof Error&&i.logger.error(a.stack),h.push({type:e,category:s?.name??t.categoryId,error:i.utils.errorMessage(a),sourceId:n,message:`${e} in ${s?.name??t.categoryId}, with sourceId ${n}`})}this.#c(y)}i.logger.debug(`Munch Complete for ${e} in ${s?.name??t.categoryId}`,{sourceIdArray:t,options:foundry.utils.deepClone(p)})}let p=t||a,f=[];p&&l&&(f=o.length>0?o:c.filter(e=>e.isHomebrew).map(e=>e.entityRaceId),r&&(f=f.filter(e=>!d.has(e))),0===f.length&&(i.logger.debug("Skipping homebrew species pass: nothing new to munch"),p=!1));let v=[];if(p&&u&&(v=m.filter(e=>e.isHomebrew).filter(e=>matchesRulesVersion(e)).map(e=>e.id),r&&(v=v.filter(e=>!g.has(e))),0===v.length&&(i.logger.debug(`Skipping homebrew ${e} pass: nothing new to munch`),p=!1)),p){const s=foundry.utils.deepClone(n);s.homebrew=!0,s.onlyHomebrew=a,l&&f.length>0&&(s.filterIds=f),u&&v.length>0&&(s.filterIds=v);const r=new A.A(s);this.notifierV2({section:"name",message:`Importing...om Homebrew category for ${e}...`});try{await r.process(),i.logger.debug(`Munch Complete for ${e} in Homebrew`,{muleHandler:r,homebrew:t,onlyHomebrew:a,options:foundry.utils.deepClone(s)})}catch(t){i.logger.error(t),t instanceof Error&&i.logger.error(t.stack),h.push({type:e,category:"Homebrew",error:i.utils.errorMessage(t),message:`${e} in Homebrew`})}}y&&this.#c(p?"Homebrew":"Homebrew (skipped)")}catch(e){i.logger.error(e),e instanceof Error&&i.logger.error(e.stack),this.notifier(`Error during munching: ${i.utils.errorMessage(e)}`,{nameField:!0})}finally{this.stopAutoRotateMessage(),h.length>0&&(this.notifier(`Errors during munching: ${h.length}`,{nameField:!0}),this.notifier(h.map(e=>e.message).join(" & "),{message:!0}),i.logger.error("Process Errors:",h))}}static async parseFeats(e,t){ui.notifications?.info("Feats compendium import has been removed.")}static async parseBackgrounds(e,t){ui.notifications?.info("Backgrounds compendium import has been removed.")}static async parseClasses(e,t){ui.notifications?.info("Classes compendium import has been removed.")}static async parseSpecies(e,t){ui.notifications?.info("Species compendium import has been removed.")}static async generateAdventureConfig(e,t){try{i.logger.info("Generating adventure config!"),await(0,r.b)(),this.notifier("Downloading config file",{nameField:!0}),this.notifier("")}catch(e){i.logger.error(e),e instanceof Error&&i.logger.error(e.stack)}}static async importAdventure(e,t){try{i.logger.info("Generating adventure config!"),this._disableButtons();const e=this.element.querySelector("#munch-adventure-file")?.files?.[0];if(!e)throw new Error("No adventure file selected");const t=new o.A({importFile:e,notifierV2:this.notifierV2.bind(this)});await t.importAdventure()}catch(e){i.logger.error(e),e instanceof Error&&i.logger.error(e.stack)}finally{this.notifierV2({progress:{current:1,total:1},message:"",progressBar:"primary",clear:!0}),this._enableButtons()}}static async importThirdParty(e,t){(new ThirdPartyMunch).render(!0)}static async openMapBrowser(e,t){(new I.A).render({force:!0})}static async openStickerBrowser(e,t){await w.A.open()}static async parseAdventures(e,t){
     try {
-      this._disableButtons();
       const selectedSourceIds = (i.utils.getSetting("munching-policy-muncher-sources") || []).map(Number).filter(Number.isInteger);
       if (!selectedSourceIds.length) {
         console.warn("[DDB Importer] No adventures or sourcebooks selected in Settings -> Sources.");
         ui.notifications?.warn("No adventures or sourcebooks selected. Please select sources in Settings -> Sources first.");
         return;
       }
+
+      const enabledBooks = selectedSourceIds.map(id => {
+        const b = CONFIG.DDB?.sources?.find(s => s.id === id);
+        const name = b?.description || b?.name || ("Book " + id);
+        return { id, name };
+      }).sort((a, b) => a.name.localeCompare(b.name));
+
+      const optionsHtml = enabledBooks.map(b => "<option value=\"" + b.id + "\">" + b.name + "</option>").join("");
+
+      const dialogContent = `
+        <form class="ddb-adventure-select-form" style="display: flex; flex-direction: column; gap: 14px; padding: 6px;">
+          <p style="margin: 0; font-size: 13px; line-height: 1.4;">
+            Choose whether to import all currently enabled sources or select a single adventure / sourcebook to import:
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.04); border: 1px solid var(--color-border-light-2, #ccc); border-radius: 6px; padding: 12px;">
+            <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; font-size: 13px;">
+              <input type="radio" name="importChoice" value="all" checked style="margin: 0; cursor: pointer;" />
+              <span>Import all enabled sources (${enabledBooks.length})</span>
+            </label>
+            <div style="display: flex; flex-direction: column; gap: 8px;">
+              <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; font-size: 13px;">
+                <input type="radio" name="importChoice" value="single" style="margin: 0; cursor: pointer;" />
+                <span>Import single adventure from list:</span>
+              </label>
+              <select id="ddb-single-adventure-select" name="singleAdventureId" onchange="this.form.querySelector('input[value=single]').checked=true;" onclick="this.form.querySelector('input[value=single]').checked=true;" style="margin-left: 24px; width: calc(100% - 24px); height: 32px; font-size: 13px; cursor: pointer;">
+                ${optionsHtml}
+              </select>
+            </div>
+          </div>
+        </form>
+      `;
+
+      let sourcesToImport = null;
+      if (foundry.applications?.api?.DialogV2) {
+        sourcesToImport = await foundry.applications.api.DialogV2.wait({
+          window: { title: "Import Adventures", icon: "fas fa-dungeon" },
+          position: { width: 480 },
+          content: dialogContent,
+          rejectClose: false,
+          buttons: [
+            {
+              action: "import",
+              label: "Import",
+              icon: "fas fa-file-import",
+              default: true,
+              callback: (event, button, dialog) => {
+                const form = dialog.element ? dialog.element.querySelector("form") : button.form;
+                const choice = form?.querySelector('input[name="importChoice"]:checked')?.value || "all";
+                if (choice === "single") {
+                  const singleId = Number(form?.querySelector('select[name="singleAdventureId"]')?.value);
+                  return singleId ? [singleId] : [];
+                }
+                return selectedSourceIds;
+              }
+            },
+            {
+              action: "cancel",
+              label: "Cancel",
+              icon: "fas fa-times",
+              callback: () => null
+            }
+          ]
+        });
+      } else {
+        sourcesToImport = await new Promise(resolve => {
+          new Dialog({
+            title: "Import Adventures",
+            content: dialogContent,
+            buttons: {
+              import: {
+                icon: '<i class="fas fa-file-import"></i>',
+                label: "Import",
+                callback: html => {
+                  const choice = html.find('input[name="importChoice"]:checked').val() || "all";
+                  if (choice === "single") {
+                    const singleId = Number(html.find('select[name="singleAdventureId"]').val());
+                    resolve(singleId ? [singleId] : []);
+                  } else {
+                    resolve(selectedSourceIds);
+                  }
+                }
+              },
+              cancel: {
+                icon: '<i class="fas fa-times"></i>',
+                label: "Cancel",
+                callback: () => resolve(null)
+              }
+            },
+            default: "import",
+            close: () => resolve(null)
+          }).render(true);
+        });
+      }
+
+      if (!sourcesToImport || !sourcesToImport.length) {
+        console.log("[DDB Importer] Adventure import cancelled by user.");
+        return;
+      }
+
+      this._disableButtons();
       const options = {
         allScenes: false,
         compendiumOnly: true,
@@ -330,10 +429,10 @@ class ${e} not found in class list, skipping`,{classList:t});continue}const l=r.
       };
       const notifier = this.notifierV2 ? this.notifierV2.bind(this) : this.notifier?.bind(this);
       let count = 0;
-      const total = selectedSourceIds.length;
-      console.log("[DDB Importer] Starting adventure import for " + total + " source(s):", selectedSourceIds);
+      const total = sourcesToImport.length;
+      console.log("[DDB Importer] Starting adventure import for " + total + " source(s):", sourcesToImport);
       this.notifier?.("Starting compendium import for " + total + " adventure/sourcebook source(s)...", { nameField: true });
-      for (const bookId of selectedSourceIds) {
+      for (const bookId of sourcesToImport) {
         count++;
         const bookName = CONFIG.DDB?.sources?.find(s => s.id === bookId)?.description ?? ("Book " + bookId);
         console.log("[DDB Importer] [" + count + "/" + total + "] Processing source: \"" + bookName + "\" (ID: " + bookId + ")...");
