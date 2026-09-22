@@ -317,9 +317,34 @@ Hooks.once("setup", async () => {
 });
 
 Hooks.once("ready", async () => {
+  await sanitizeLegacyProxySettings();
   await ensureDDBCompendiumsUnlocked();
   await organizeDDBCompendiums();
 });
+
+export async function sanitizeLegacyProxySettings() {
+  try {
+    const corsSetting = game.settings.get("ddb-importer", "cors-endpoint");
+    if (typeof corsSetting === "string" && corsSetting.includes("mrprimate")) {
+      console.log("[Jenne DDB Importer] Sanitizing legacy mrprimate cors-endpoint setting...");
+      await game.settings.set("ddb-importer", "cors-endpoint", "https://ddb-proxy.clemson.engineer/");
+    }
+  } catch (e) {}
+  try {
+    const apiSetting = game.settings.get("ddb-importer", "api-endpoint");
+    if (typeof apiSetting === "string" && apiSetting.includes("mrprimate")) {
+      console.log("[Jenne DDB Importer] Sanitizing legacy mrprimate api-endpoint setting...");
+      await game.settings.set("ddb-importer", "api-endpoint", "https://ddb-proxy.clemson.engineer");
+    }
+  } catch (e) {}
+  try {
+    const dynamicSetting = game.settings.get("ddb-importer", "dynamic-api-endpoint");
+    if (typeof dynamicSetting === "string" && dynamicSetting.includes("mrprimate")) {
+      console.log("[Jenne DDB Importer] Sanitizing legacy mrprimate dynamic-api-endpoint setting...");
+      await game.settings.set("ddb-importer", "dynamic-api-endpoint", "https://ddb-proxy.clemson.engineer");
+    }
+  } catch (e) {}
+}
 
 Hooks.on("ddb-importer.compendiumCreationComplete", async () => {
   await ensureDDBCompendiumsUnlocked();
