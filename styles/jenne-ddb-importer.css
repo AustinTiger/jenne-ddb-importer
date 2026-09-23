@@ -961,6 +961,28 @@
 }
 
 /* Campaign character table */
+.ddb-party-character-table-container {
+  max-height: 280px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border: 1px solid var(--jenne-border);
+  border-radius: 4px;
+  margin-top: 10px;
+}
+
+.ddb-party-character-table-container .ddb-party-character-list {
+  margin-top: 0;
+  width: 100%;
+}
+
+.ddb-party-character-table-container thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--jenne-bg-tertiary);
+  box-shadow: 0 1px 0 var(--jenne-border);
+}
+
 .ddb-party-character-list {
   width: 100%;
   border-collapse: collapse;
