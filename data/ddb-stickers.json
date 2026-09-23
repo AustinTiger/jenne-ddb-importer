@@ -1,0 +1,360 @@
+{
+  "stickers": [
+    {
+      "gameElementUri": "ddb-sticker-chest-oak",
+      "name": "Oak Treasure Chest",
+      "altText": "Reinforced oak treasure chest",
+      "keywords": [
+        "chest",
+        "container",
+        "furniture",
+        "treasure"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/containers/chest/chest-oak-steel-brown.webp",
+      "thumbnailKey": "icons/containers/chest/chest-oak-steel-brown.webp",
+      "entitledData": {
+        "imageKey": "icons/containers/chest/chest-oak-steel-brown.webp",
+        "aspectRatio": 1,
+        "scale": 1
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-chest-stone",
+      "name": "Stone Coffer Chest",
+      "altText": "Reinforced stone coffer chest",
+      "keywords": [
+        "chest",
+        "container",
+        "stone",
+        "dungeon",
+        "treasure"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/containers/chest/chest-reinforced-stone.webp",
+      "thumbnailKey": "icons/containers/chest/chest-reinforced-stone.webp",
+      "entitledData": {
+        "imageKey": "icons/containers/chest/chest-reinforced-stone.webp",
+        "aspectRatio": 1,
+        "scale": 1
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-chest-steel",
+      "name": "Steel Strongbox Chest",
+      "altText": "Reinforced steel strongbox",
+      "keywords": [
+        "chest",
+        "container",
+        "metal",
+        "safe",
+        "treasure"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/containers/chest/chest-reinforced-steel-brown.webp",
+      "thumbnailKey": "icons/containers/chest/chest-reinforced-steel-brown.webp",
+      "entitledData": {
+        "imageKey": "icons/containers/chest/chest-reinforced-steel-brown.webp",
+        "aspectRatio": 1,
+        "scale": 1
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-barrel-oak",
+      "name": "Oak Storage Barrel",
+      "altText": "Banded oak storage barrel",
+      "keywords": [
+        "barrel",
+        "container",
+        "wood",
+        "furniture",
+        "storage"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/containers/barrels/barrel-oak-steel-brown.webp",
+      "thumbnailKey": "icons/containers/barrels/barrel-oak-steel-brown.webp",
+      "entitledData": {
+        "imageKey": "icons/containers/barrels/barrel-oak-steel-brown.webp",
+        "aspectRatio": 1,
+        "scale": 1
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-barrels-stacked",
+      "name": "Stacked Barrels",
+      "altText": "Group of stacked storage barrels",
+      "keywords": [
+        "barrel",
+        "container",
+        "stack",
+        "storage"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/containers/barrels/barrels-simple-stacked-white.webp",
+      "thumbnailKey": "icons/containers/barrels/barrels-simple-stacked-white.webp",
+      "entitledData": {
+        "imageKey": "icons/containers/barrels/barrels-simple-stacked-white.webp",
+        "aspectRatio": 1,
+        "scale": 2
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-crate-wooden",
+      "name": "Wooden Supply Crate",
+      "altText": "Heavy wooden cargo crate",
+      "keywords": [
+        "crate",
+        "container",
+        "cargo",
+        "storage"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/containers/boxes/crate-wooden-brown.webp",
+      "thumbnailKey": "icons/containers/boxes/crate-wooden-brown.webp",
+      "entitledData": {
+        "imageKey": "icons/containers/boxes/crate-wooden-brown.webp",
+        "aspectRatio": 1,
+        "scale": 1
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-crates-stacked",
+      "name": "Stacked Wooden Crates",
+      "altText": "Stack of wooden cargo crates",
+      "keywords": [
+        "crate",
+        "container",
+        "stack",
+        "cargo",
+        "storage"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/containers/boxes/crates-wooden-stacked.webp",
+      "thumbnailKey": "icons/containers/boxes/crates-wooden-stacked.webp",
+      "entitledData": {
+        "imageKey": "icons/containers/boxes/crates-wooden-stacked.webp",
+        "aspectRatio": 1,
+        "scale": 2
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-trap-spikes",
+      "name": "Floor Spike Trap",
+      "altText": "Concealed metal floor spikes trap",
+      "keywords": [
+        "trap",
+        "spikes",
+        "hazard",
+        "dungeon"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/traps/metal-spikes.webp",
+      "thumbnailKey": "icons/environment/traps/metal-spikes.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/traps/metal-spikes.webp",
+        "aspectRatio": 1,
+        "scale": 1
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-trap-pressure-plate",
+      "name": "Pressure Plate Trigger",
+      "altText": "Stone pressure plate trap trigger",
+      "keywords": [
+        "trap",
+        "trigger",
+        "hazard",
+        "stone",
+        "dungeon"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/traps/pressure-plate.webp",
+      "thumbnailKey": "icons/environment/traps/pressure-plate.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/traps/pressure-plate.webp",
+        "aspectRatio": 1,
+        "scale": 1
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-cage-steel",
+      "name": "Hanging Steel Cage",
+      "altText": "Heavy steel prison cage",
+      "keywords": [
+        "cage",
+        "prison",
+        "trap",
+        "dungeon",
+        "furniture"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/traps/cage-grey-steel.webp",
+      "thumbnailKey": "icons/environment/traps/cage-grey-steel.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/traps/cage-grey-steel.webp",
+        "aspectRatio": 1,
+        "scale": 2
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-trap-grate",
+      "name": "Steel Grate Trapdoor",
+      "altText": "Heavy steel grate or floor trapdoor",
+      "keywords": [
+        "grate",
+        "door",
+        "trapdoor",
+        "hazard",
+        "dungeon"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/traps/grate-steel.webp",
+      "thumbnailKey": "icons/environment/traps/grate-steel.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/traps/grate-steel.webp",
+        "aspectRatio": 1,
+        "scale": 1
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-camp-improvised",
+      "name": "Adventurer Campsite",
+      "altText": "Improvised camp with bedroll and gear",
+      "keywords": [
+        "camp",
+        "campfire",
+        "bedroll",
+        "wilderness",
+        "rest"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/wilderness/camp-improvised.webp",
+      "thumbnailKey": "icons/environment/wilderness/camp-improvised.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/wilderness/camp-improvised.webp",
+        "aspectRatio": 1,
+        "scale": 2
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-arch-stone",
+      "name": "Ancient Stone Arch",
+      "altText": "Carved ancient stone archway",
+      "keywords": [
+        "arch",
+        "ruins",
+        "portal",
+        "stone",
+        "door"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/wilderness/arch-stone.webp",
+      "thumbnailKey": "icons/environment/wilderness/arch-stone.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/wilderness/arch-stone.webp",
+        "aspectRatio": 1,
+        "scale": 2
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-standing-stone",
+      "name": "Carved Standing Stone",
+      "altText": "Mystic carved rune standing stone monolith",
+      "keywords": [
+        "monolith",
+        "stone",
+        "runes",
+        "magic",
+        "altar"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/wilderness/carved-standing-stone.webp",
+      "thumbnailKey": "icons/environment/wilderness/carved-standing-stone.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/wilderness/carved-standing-stone.webp",
+        "aspectRatio": 1,
+        "scale": 2
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-cave-entrance",
+      "name": "Rocky Cave Entrance",
+      "altText": "Natural rocky cave or cavern entrance",
+      "keywords": [
+        "cave",
+        "cavern",
+        "entrance",
+        "dungeon",
+        "rock"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/wilderness/cave-entrance-rocky.webp",
+      "thumbnailKey": "icons/environment/wilderness/cave-entrance-rocky.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/wilderness/cave-entrance-rocky.webp",
+        "aspectRatio": 1,
+        "scale": 3
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-bridge-stone",
+      "name": "Arched Stone Bridge",
+      "altText": "Cobblestone bridge crossing",
+      "keywords": [
+        "bridge",
+        "stone",
+        "water",
+        "crossing",
+        "settlement"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/settlement/bridge-stone.webp",
+      "thumbnailKey": "icons/environment/settlement/bridge-stone.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/settlement/bridge-stone.webp",
+        "aspectRatio": 1,
+        "scale": 3
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-castle-gatehouse",
+      "name": "Fortified Castle Gatehouse",
+      "altText": "Fortified stone castle gatehouse and portcullis",
+      "keywords": [
+        "gate",
+        "gatehouse",
+        "castle",
+        "wall",
+        "door"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/settlement/castle-gatehouse.webp",
+      "thumbnailKey": "icons/environment/settlement/castle-gatehouse.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/settlement/castle-gatehouse.webp",
+        "aspectRatio": 1,
+        "scale": 3
+      }
+    },
+    {
+      "gameElementUri": "ddb-sticker-building-rubble",
+      "name": "Stone Building Rubble",
+      "altText": "Collapsed stone building debris and rubble",
+      "keywords": [
+        "rubble",
+        "ruins",
+        "debris",
+        "hazard",
+        "stone"
+      ],
+      "primarySourceId": 148,
+      "thumbnail": "icons/environment/settlement/building-rubble.webp",
+      "thumbnailKey": "icons/environment/settlement/building-rubble.webp",
+      "entitledData": {
+        "imageKey": "icons/environment/settlement/building-rubble.webp",
+        "aspectRatio": 1,
+        "scale": 2
+      }
+    }
+  ]
+}

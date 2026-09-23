@@ -579,6 +579,18 @@ if (typeof window !== "undefined") {
 }
 globalThis.cancelAdventureImport = cancelAdventureImport;
 
+// Expose universal Sticker Browser opener
+export function openStickerBrowser() {
+  if (globalThis.DDB_OPEN_STICKER_BROWSER) return globalThis.DDB_OPEN_STICKER_BROWSER();
+  if (globalThis.DDBImporter?.DDBStickerBrowser?.open) return globalThis.DDBImporter.DDBStickerBrowser.open();
+  ui.notifications?.warn?.("Sticker Browser is not ready yet.");
+}
+
+if (typeof window !== "undefined") {
+  window.openStickerBrowser = openStickerBrowser;
+}
+globalThis.openStickerBrowser = openStickerBrowser;
+
 Hooks.once("ready", async () => {
   try {
     // 1. Sanitize cobalt-cookie setting
