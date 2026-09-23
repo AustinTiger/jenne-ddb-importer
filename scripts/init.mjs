@@ -567,6 +567,18 @@ if (typeof window !== "undefined") {
   window.syncLegacySpellsToCompendium = syncLegacySpellsToCompendium;
 }
 
+// Expose universal cancellation helper for adventure compendium imports
+export function cancelAdventureImport() {
+  globalThis.DDB_CANCEL_ADVENTURE_IMPORT = true;
+  console.warn("[Jenne DDB Importer] Cancelling adventure import...");
+  ui.notifications?.info?.("Cancelling adventure import after current source completes...");
+}
+
+if (typeof window !== "undefined") {
+  window.cancelAdventureImport = cancelAdventureImport;
+}
+globalThis.cancelAdventureImport = cancelAdventureImport;
+
 Hooks.once("ready", async () => {
   try {
     // 1. Sanitize cobalt-cookie setting
