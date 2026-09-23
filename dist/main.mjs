@@ -904,8 +904,7 @@ class DDBMuncherSettings extends f.A{static checkCobaltButton(...e){return DDBMu
   }
 
   get title(){
-    const e=this.partyState.campaignName||(this.actor?(foundry.utils.getProperty(this.actor,"flags.jenne-ddb-importer.partyCampaignName")||foundry.utils.getProperty(this.actor,"flags.ddbimporter.partyCampaignName")):void 0);
-    return e?`DDB Characters - ${e}`:"DDB Characters";
+    return "D&D Beyond Characters";
   }
 
   get isPartyActor(){
