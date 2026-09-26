@@ -565,6 +565,15 @@ class DDBMuncherSettings extends f.A{static checkCobaltButton(...e){return DDBMu
   const{compendiumOnly:a,addToCompendiums:n}=this.#R(t),s=i.DDBProxy.getProxy(),r=i.Secrets.getCobalt();
   const bookDef=CONFIG.DDB?.sources?.find(src=>src.id===Number(e));
   const bookName=bookDef?.description||bookDef?.name||i.DDBSources?.getBookName?.(bookDef?.name)||("Book " + e);
+
+  // Recalculate progress steps for web extraction pipeline so progress reaches 100% (e.g. 5/5 or 6/6)
+  let webSteps = 3;
+  if(n||a) webSteps += 1;
+  if(!a) webSteps += 1;
+  webSteps += 1; // completion step
+  this.#H = webSteps;
+  this.#L = 0;
+
   console.log("[DDB Importer] Requesting web extraction for \"" + bookName + "\" (ID: " + e + ") from proxy: " + s + "...");
   this.#Y("Extracting " + bookName + " from D&D Beyond web...");
   const o=await(0,i.postJson)(s + "/proxy/adventure/extract/" + e,{cobalt:r,bookId:e});
@@ -664,12 +673,22 @@ class DDBMuncherSettings extends f.A{static checkCobaltButton(...e){return DDBMu
   const isSourcebook=sourcebookIds.has(Number(e))||[26,35].includes(bookDef?.sourceCategoryId);
   const sourcebookPack=isSourcebook?game.packs.get("jenne-bag-of-holding.d-d-beyond-sourcebooks"):null;
   const advPack=sourcebookPack||i.CompendiumHelper.getCompendiumType("adventure",false);
-  const sanitizeAdvImg=(url,fallback="icons/svg/book.svg")=>{if(!url||typeof url!=="string")return fallback;const clean=url.trim();if(!clean)return fallback;const pathWithoutQuery=clean.split("?")[0].split("#")[0];const parts=pathWithoutQuery.split("/").filter(Boolean);const lastSeg=parts[parts.length-1];if(!lastSeg||lastSeg==="avatars"||lastSeg.length<3)return fallback;if(/\.(?:avif|bmp|gif|jpe?g|png|svg|tiff?|webp)$/i.test(pathWithoutQuery))return clean;if(clean.includes("media.amplience.net")||clean.includes("dndbeyond.com")||clean.startsWith("http"))return clean+".jpg";return fallback};
+
+  const isRedB=(url)=>{if(!url||typeof url!=="string")return true;return url.includes("636511944060210307")||url.includes("avatars/104/378")||url.endsWith("/avatars/")||url.endsWith("/avatars")};
+  const sanitizeAdvImg=(url,fallback="icons/svg/book.svg")=>{if(!url||typeof url!=="string")return fallback;const clean=url.trim();if(!clean||isRedB(clean))return fallback;const pathWithoutQuery=clean.split("?")[0].split("#")[0];const parts=pathWithoutQuery.split("/").filter(Boolean);const lastSeg=parts[parts.length-1];if(!lastSeg||lastSeg==="avatars"||lastSeg.length<3)return fallback;if(/\.(?:avif|bmp|gif|jpe?g|png|svg|tiff?|webp)$/i.test(pathWithoutQuery))return clean;if(clean.includes("media.amplience.net")||clean.includes("dndbeyond.com")||clean.startsWith("http"))return clean+".jpg";return fallback};
+
+  const validAvatar=!isRedB(bookDef?.avatarURL)?bookDef.avatarURL:null;
+  const validImg=!isRedB(l.img)?l.img:null;
+  const validBanner=!isRedB(l.banner)?l.banner:null;
+  const chosenCover=validAvatar||validImg||validBanner;
+  const finalCoverImg=sanitizeAdvImg(chosenCover,"icons/svg/book.svg");
+  const finalBannerImg=sanitizeAdvImg(validBanner||chosenCover,"");
+
   const adventureData={
     name:c,
-    img:sanitizeAdvImg(l.img||l.banner||bookDef?.avatarURL,"icons/svg/book.svg"),
+    img:finalCoverImg,
     description:l.description||("<p>" + c + "</p>"),
-    banner:sanitizeAdvImg(l.banner||l.img||bookDef?.avatarURL,""),
+    banner:finalBannerImg,
     journal:journals,
     scenes:scenes,
     tables:tables,
@@ -693,7 +712,26 @@ class DDBMuncherSettings extends f.A{static checkCobaltButton(...e){return DDBMu
     console.log("[DDB Importer] Saving Adventure document \"" + c + "\" to compendium \"" + advPack.metadata.label + "\" (" + advPack.metadata.id + ")...");
     this.#Y("Saving " + c + " to Adventure compendium...");
     try{await advPack.configure({locked:false})}catch(err){}
-    await advPack.getIndex();
+    await advPack.getIndex({fields:["name","img","flags"]});
+
+    // Auto-repair existing compendium adventures with red B or fallback placeholder icons
+    try {
+      for (const entry of advPack.index) {
+        if (isRedB(entry.img) || entry.img === "icons/svg/book.svg") {
+          const matchSrc = CONFIG.DDB?.sources?.find(s => s.description?.toLowerCase() === entry.name?.toLowerCase() || s.name?.toLowerCase() === entry.name?.toLowerCase());
+          if (matchSrc?.avatarURL && !isRedB(matchSrc.avatarURL)) {
+            const docToFix = await advPack.getDocument(entry._id);
+            if (docToFix) {
+              console.log(`[DDB Importer] Auto-repairing cover image for compendium adventure "${entry.name}" -> ${matchSrc.avatarURL}`);
+              await docToFix.update({ img: matchSrc.avatarURL });
+            }
+          }
+        }
+      }
+    } catch (repairErr) {
+      console.warn("[DDB Importer] Compendium auto-repair notice:", repairErr);
+    }
+
     let existingIndex=advPack.index.find(doc=>doc.name===c);
     if(!existingIndex){
       console.log("[DDB Importer] Creating Adventure document shell in " + advPack.metadata.label + "...");
@@ -712,7 +750,7 @@ class DDBMuncherSettings extends f.A{static checkCobaltButton(...e){return DDBMu
           img:adventureData.img
         }],{pack:advPack.metadata.id,keepId:true,keepEmbeddedIds:true});
       }
-      await advPack.getIndex();
+      await advPack.getIndex({fields:["name","img","flags"]});
       existingIndex=advPack.index.find(doc=>doc.name===c);
     }
     if(existingIndex){
@@ -720,6 +758,7 @@ class DDBMuncherSettings extends f.A{static checkCobaltButton(...e){return DDBMu
       const advDoc=await advPack.getDocument(existingIndex._id);
       if(advDoc){
         adventureData._id=advDoc._id;
+        adventureData.img=finalCoverImg;
         await advDoc.update(adventureData,{diff:false,recursive:false});
         console.log("[DDB Importer] Adventure \"" + c + "\" successfully saved to " + advPack.metadata.label + "!");
       }
@@ -781,6 +820,7 @@ class DDBMuncherSettings extends f.A{static checkCobaltButton(...e){return DDBMu
     if(tables.length)await RollTable.createDocuments(tables);
   }
   console.log("[DDB Importer] Finished importing \"" + c + "\": " + journals.length + " chapters, " + scenes.length + " scenes, " + tables.length + " tables.");
+  this.#L = this.#H - 1;
   this.#Y("Finished importing " + c + "!");
   ui.notifications?.info?.("Imported " + c + ": " + journals.length + " chapters, " + scenes.length + " scenes.");
   return l;
