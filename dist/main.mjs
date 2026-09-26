@@ -295,26 +295,26 @@ class ${e} not found in class list, skipping`,{classList:t});continue}const l=r.
       const optionsHtml = enabledBooks.map(b => "<option value=\"" + b.id + "\">" + b.name + "</option>").join("");
 
       const dialogContent = `
-        <form class="ddb-adventure-select-form" style="display: flex; flex-direction: column; gap: 14px; padding: 6px;">
+        <div class="ddb-adventure-select-form" style="display: flex; flex-direction: column; gap: 14px; padding: 6px;">
           <p style="margin: 0; font-size: 13px; line-height: 1.4;">
             Choose whether to import all currently enabled sources or select a single adventure / sourcebook to import:
           </p>
           <div style="display: flex; flex-direction: column; gap: 12px; background: rgba(0,0,0,0.04); border: 1px solid var(--color-border-light-2, #ccc); border-radius: 6px; padding: 12px;">
             <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; font-size: 13px;">
-              <input type="radio" name="importChoice" value="all" checked style="margin: 0; cursor: pointer;" />
+              <input type="radio" id="ddb-import-choice-all" name="importChoice" value="all" checked style="margin: 0; cursor: pointer;" />
               <span>Import all enabled sources (${enabledBooks.length})</span>
             </label>
             <div style="display: flex; flex-direction: column; gap: 8px;">
               <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; font-weight: bold; font-size: 13px;">
-                <input type="radio" name="importChoice" value="single" style="margin: 0; cursor: pointer;" />
+                <input type="radio" id="ddb-import-choice-single" name="importChoice" value="single" style="margin: 0; cursor: pointer;" />
                 <span>Import single adventure from list:</span>
               </label>
-              <select id="ddb-single-adventure-select" name="singleAdventureId" onchange="this.form.querySelector('input[value=single]').checked=true;" onclick="this.form.querySelector('input[value=single]').checked=true;" style="margin-left: 24px; width: calc(100% - 24px); height: 32px; font-size: 13px; cursor: pointer;">
+              <select id="ddb-single-adventure-select" name="singleAdventureId" style="margin-left: 24px; width: calc(100% - 24px); height: 32px; font-size: 13px; cursor: pointer;">
                 ${optionsHtml}
               </select>
             </div>
           </div>
-        </form>
+        </div>
       `;
 
       let sourcesToImport = null;
@@ -324,6 +324,19 @@ class ${e} not found in class list, skipping`,{classList:t});continue}const l=r.
           position: { width: 480 },
           content: dialogContent,
           rejectClose: false,
+          render: (event, dialog) => {
+            const root = dialog.element;
+            const select = root?.querySelector("#ddb-single-adventure-select");
+            const radio = root?.querySelector('input[name="importChoice"][value="single"]');
+            if (select && radio) {
+              const setSingle = () => { radio.checked = true; };
+              select.addEventListener("change", setSingle);
+              select.addEventListener("input", setSingle);
+              select.addEventListener("focus", setSingle);
+              select.addEventListener("click", setSingle);
+              select.addEventListener("mousedown", setSingle);
+            }
+          },
           buttons: [
             {
               action: "import",
@@ -331,10 +344,10 @@ class ${e} not found in class list, skipping`,{classList:t});continue}const l=r.
               icon: "fas fa-file-import",
               default: true,
               callback: (event, button, dialog) => {
-                const form = dialog.element ? dialog.element.querySelector("form") : button.form;
-                const choice = form?.querySelector('input[name="importChoice"]:checked')?.value || "all";
+                const root = dialog.element || button.form || button.closest?.("form");
+                const choice = root?.querySelector('input[name="importChoice"]:checked')?.value || "all";
                 if (choice === "single") {
-                  const singleId = Number(form?.querySelector('select[name="singleAdventureId"]')?.value);
+                  const singleId = Number(root?.querySelector('select[name="singleAdventureId"]')?.value);
                   return singleId ? [singleId] : [];
                 }
                 return selectedSourceIds;
@@ -353,14 +366,29 @@ class ${e} not found in class list, skipping`,{classList:t});continue}const l=r.
           new Dialog({
             title: "Import Adventures",
             content: dialogContent,
+            render: html => {
+              const root = html instanceof HTMLElement ? html : (html[0] || html);
+              const select = root?.querySelector?.("#ddb-single-adventure-select");
+              const radio = root?.querySelector?.('input[name="importChoice"][value="single"]');
+              if (select && radio) {
+                const setSingle = () => { radio.checked = true; };
+                select.addEventListener("change", setSingle);
+                select.addEventListener("input", setSingle);
+                select.addEventListener("focus", setSingle);
+                select.addEventListener("click", setSingle);
+                select.addEventListener("mousedown", setSingle);
+              }
+            },
             buttons: {
               import: {
                 icon: '<i class="fas fa-file-import"></i>',
                 label: "Import",
                 callback: html => {
-                  const choice = html.find('input[name="importChoice"]:checked').val() || "all";
+                  const root = html instanceof HTMLElement ? html : (html[0] || html);
+                  const choice = (root?.querySelector ? root.querySelector('input[name="importChoice"]:checked')?.value : html.find('input[name="importChoice"]:checked').val()) || "all";
                   if (choice === "single") {
-                    const singleId = Number(html.find('select[name="singleAdventureId"]').val());
+                    const singleEl = root?.querySelector ? root.querySelector('select[name="singleAdventureId"]') : null;
+                    const singleId = Number(singleEl ? singleEl.value : html.find('select[name="singleAdventureId"]').val());
                     resolve(singleId ? [singleId] : []);
                   } else {
                     resolve(selectedSourceIds);
